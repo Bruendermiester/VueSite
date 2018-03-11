@@ -5,8 +5,12 @@
           <div class="column" v-for="row in board.rows">
               <div class="row" v-for="spot in row.spots">
                   <div class="tile">
-                      <div class="dot" :style="[spot.isCovered ? {backgroundColor: spot.color, cursor: 'pointer'} : '' , spot.isSelected ? {border: '1px solid #FFF'} : '']" @mousedown="selectDot(spot)">
-
+                      <div class="dot" 
+                            :style="[
+                                spot.isCovered ? {backgroundColor: spot.color, cursor: 'pointer'} : '' ,
+                                spot.isSelected ? {border: '1px solid #FFF'} : ''
+                            ]" 
+                            @mousedown="selectDot(spot)">
                       </div>
                   </div>
               </div>
@@ -67,8 +71,6 @@ export default {
           console.log(board)
         return board;
       },
-      updateBoard: function() {
-      },
       selectDot: function(spot) {
           if(!this.selectedState && spot.isCovered) {
               this.selectedState = true;
@@ -123,69 +125,36 @@ export default {
       },
       checkConnectFive: function() {
 
-          for(var x = 0; x < (this.boardSize[0] * this.boardSize[1]); x=x+10) {
-              this.checkHorizontalRow(x, x);
-          }
-
-          for(var x = 0; x < this.boardSize[0]; x++) {
-              this.checkVirticalRow(x);
-          }
-
-           for(var y = 0; y < this.boardSize[0]; y++) {
-             for(var x = 0; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
-                 this.checkDiagonalRow(x + y, 99 - (y*10));
-             }          
-           }              
-
-          for(var y = 0; y < this.boardSize[0]; y++) {
+        for(var x = 0; x < (this.boardSize[0] * this.boardSize[1]); x=x+10) {
+            this.checkHorizontalRow(x, x+9);
+        }
+        for(var x = 0; x < this.boardSize[0]; x++) {
+            this.checkVirticalRow(x, 99);
+        }
+        for(var y = 0; y < this.boardSize[0]; y++) {
+            for(var x = 0; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
+                this.checkDiagonalRow(x + y, 99 - (y*10));
+            }          
+        }              
+        for(var y = 0; y < this.boardSize[0]; y++) {
             for(var x = 9; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
                 this.checkDiagonalRowReverse(x - y, 90 + y);
             }          
-          }          
-          
+        }          
       },
       checkDiagonalRowReverse: function(val, offset) {
-
-        var x = val;
-        var y = 0;
-        this.destroy = false;
-        var arraySpots = [];
-        while(x <= offset) {
-            
-            arraySpots.push(this.findLocation(x));
-            if(!arraySpots[y].isCovered && this.destroy) {
-                break;
-            }      
-            if(!arraySpots[y].isCovered){
-                this.checkDiagonalRowReverse(x + 9, offset);
-                return;
-            }
-            if(!this.checkArrayColors(arraySpots) && this.destroy){
-                arraySpots.pop();
-                break;
-            }
-            else if(!this.checkArrayColors(arraySpots)){
-                this.checkDiagonalRowReverse(x, offset);
-                return;                
-            }
-            if(arraySpots.length >= 5) {
-                this.destroy = true;
-            }
-            y++;
-            x = (x + 9);
-        }
-        if(this.destroy) {
-            for(var z = 0; z < arraySpots.length; z++) {
-                var spot = this.findLocation(arraySpots[z].index);
-                spot.color = '';
-                spot.isCovered = false;
-                this.boardIndexList.push(spot.index);
-                this.connect = true;
-            }
-        }
+        this.traverse(val, offset, 9, this.checkDiagonalRowReverse);
       },      
       checkDiagonalRow: function(val, offset) {
-
+        this.traverse(val, offset, 11, this.checkDiagonalRow);
+      },
+      checkVirticalRow: function(val, offset) {
+        this.traverse(val, offset, 10, this.checkVirticalRow);
+      },
+      checkHorizontalRow: function(val, offset) {
+        this.traverse(val, offset, 1, this.checkHorizontalRow);
+      },
+      traverse: function(val, offset, modifier, directionFunction)  {
         var x = val;
         var y = 0;
         this.destroy = false;
@@ -197,49 +166,7 @@ export default {
                 break;
             }      
             if(!arraySpots[y].isCovered){
-                this.checkDiagonalRow(x+11, offset);
-                return
-            }
-            if(!this.checkArrayColors(arraySpots) && this.destroy){
-                arraySpots.pop();
-                break;
-            }
-            else if(!this.checkArrayColors(arraySpots)){
-                this.checkDiagonalRow(x, offset);
-                return;                
-            }
-            if(arraySpots.length >= 5) {
-                this.destroy = true;
-            }
-            y++;
-            x = (x + 11);
-        }
-        if(this.destroy) {
-            for(var z = 0; z < arraySpots.length; z++) {
-                var spot = this.findLocation(arraySpots[z].index);
-                spot.color = '';
-                spot.isCovered = false;
-                this.boardIndexList.push(spot.index);
-                this.connect = true;
-            }
-        }
-
-
-      },
-      checkVirticalRow: function(val) {
-  
-        var x = val;
-        var y = 0;
-        this.destroy = false;
-        var arraySpots = [];
-        while(x < this.boardSize[1] * this.boardSize[0]) {
-            
-            arraySpots.push(this.findLocation(x));
-            if(!arraySpots[y].isCovered && this.destroy) {
-                break;
-            }      
-            if(!arraySpots[y].isCovered){
-                this.checkVirticalRow(x+10);
+                directionFunction(x + modifier, offset);
                 return;
             }
             if(!this.checkArrayColors(arraySpots) && this.destroy){
@@ -247,56 +174,14 @@ export default {
                 break;
             }
             else if(!this.checkArrayColors(arraySpots)){
-                this.checkVirticalRow(x);
+                directionFunction(x, offset);
                 return;                
             }
             if(arraySpots.length >= 5) {
                 this.destroy = true;
             }
             y++;
-            x = (x + 10);
-        }
-        if(this.destroy) {
-            for(var z = 0; z < arraySpots.length; z++) {
-                var spot = this.findLocation(arraySpots[z].index);
-                spot.color = '';
-                spot.isCovered = false;
-                this.boardIndexList.push(spot.index);
-                this.connect = true;
-            }
-        }
-
-      },
-      checkHorizontalRow: function(val, offset) {
-          
-        offset = (Math.floor(offset/10) * 10);
-        var x = val;
-        var y = 0;
-        this.destroy = false;
-        var arraySpots = [];
-        while(x < this.boardSize[0] + offset) {
-            
-            arraySpots.push(this.findLocation(x));
-            if(!arraySpots[y].isCovered && this.destroy) {
-                break;
-            }      
-            if(!arraySpots[y].isCovered){
-                this.checkHorizontalRow(x+1, x);
-                return;
-            }
-            if(!this.checkArrayColors(arraySpots) && this.destroy){
-                arraySpots.pop();
-                break;
-            }
-            else if(!this.checkArrayColors(arraySpots)){
-                this.checkHorizontalRow(x, x);
-                return;                
-            }
-            if(arraySpots.length >= 5) {
-                this.destroy = true;
-            }
-            y++;
-            x++;
+            x = (x + modifier);
         }
         if(this.destroy) {
             for(var z = 0; z < arraySpots.length; z++) {
