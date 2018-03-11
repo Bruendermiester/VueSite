@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <img src="../assets/jonLogo_White.png">
     <h1>{{ msg }}</h1>
     <h2> by <br><br> {{ author }} </h2>
 
@@ -48,5 +49,8 @@ export default {
     width: 150px;
     margin: 0 auto;
     padding-top: 75px;
+  }
+  img {
+    margin-top: 60px;
   }
 </style>

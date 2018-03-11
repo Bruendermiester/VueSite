@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
@@ -22,8 +21,5 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
-}
-img {
-  margin-top: 60px;
 }
 </style>

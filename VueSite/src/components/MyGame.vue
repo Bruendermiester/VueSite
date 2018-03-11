@@ -1,52 +1,77 @@
 <template>
   <div class="gameWrapper">
-      <a href="#/" >Home</a>
+      <a href="#/">&lt; &nbsp; Back</a>
+      <h1>Connect Five</h1>
+      <div class="colorDots">
+          <div class="dotPrev" :style="{backgroundColor: 'red'}"></div>
+          <div class="dotPrev" :style="{backgroundColor: 'blue'}"></div>
+          <div class="dotPrev" :style="{backgroundColor: 'yellow'}"></div>
+          <div class="dotPrev" :style="{backgroundColor: 'green'}"></div>
+          <div class="dotPrev" :style="{backgroundColor: '#BD09BD'}"></div>
+      </div>
+      
       <div class="board">
           <div class="column" v-for="row in board.rows">
               <div class="row" v-for="spot in row.spots">
                   <div class="tile">
-                      <div class="dot" 
-                            :style="[
-                                spot.isCovered ? {backgroundColor: spot.color, cursor: 'pointer'} : '' ,
-                                spot.isSelected ? {border: '1px solid #FFF'} : ''
-                            ]" 
-                            @mousedown="selectDot(spot)">
+                      <div class="insideTile" :style="[spot.isSelected ? {border: '1px solid #FFF'} : '', spot.isCovered ? {cursor: 'pointer'} : '' ]" @mousedown="selectDot(spot)">
+                        <div class="dot" :style="spot.isCovered ? {backgroundColor: spot.color} : '' "></div>
                       </div>
                   </div>
               </div>
           </div>
       </div>
+      <div class="bottomPanel">
+        <button class="newGame" @click="restart()" >New Game</button>
+        <div class="score">Score: <span>{{currentScore}}</span></div>
+    </div>
   </div>
 </template>
 
 <script>
+var data = {
+    boardSize: [10,10], 
+    board: {},
+    selectedState: false,
+    dotSelected: {},
+    boardIndexList: {},
+    defaultSpot: {
+        isSelected: false,
+        isCovered: false,
+        color: ''
+    },
+    destroy: false,
+    connect: false,
+    currentScore: 0
+}    
+
 export default {
   name: 'Game',
   data () {
-    return {
-        boardSize: [10,10], 
-        board: {},
-        selectedState: false,
-        dotSelected: {},
-        boardIndexList: {},
-        defaultSpot: {
-            isSelected: false,
-            isCovered: false,
-            color: ''
-        },
-        destroy: false,
-        connect: false
-    }
+    return data
   },
   created: function() {
-      this.boardIndexList = this.generateIndexList();
-      this.board = this.createBoard();
-      this.spawnDots(3);
+    this.boardIndexList = this.generateIndexList();
+    this.board = this.createBoard();
+    this.spawnDots(3);
+    this.currentScore = 0;
+    this.connect = false;
+    this.dotSelected = {};
+    this.destroy = false;      
   },
   methods: {
       generateIndexList() {
           //Generate a list(0-99) based on boardsize
           return Array.apply(null, {length: (this.boardSize[0] * this.boardSize[1])}).map(Number.call, Number);
+      },
+      restart: function() {
+        this.boardIndexList = this.generateIndexList();
+        this.board = this.createBoard();
+        this.spawnDots(3);
+        this.currentScore = 0;
+        this.connect = false;
+        this.dotSelected = {};
+        this.destroy = false;
       },
       createBoard() {
           var board = {
@@ -68,7 +93,6 @@ export default {
               }
             board.rows.push(row);
           }
-          console.log(board)
         return board;
       },
       selectDot: function(spot) {
@@ -163,6 +187,7 @@ export default {
             
             arraySpots.push(this.findLocation(x));
             if(!arraySpots[y].isCovered && this.destroy) {
+                arraySpots.pop();
                 break;
             }      
             if(!arraySpots[y].isCovered){
@@ -190,6 +215,7 @@ export default {
                 spot.isCovered = false;
                 this.boardIndexList.push(spot.index);
                 this.connect = true;
+                this.currentScore = this.currentScore + 50;
             }
         }
       },
@@ -216,7 +242,7 @@ export default {
           
       },
       pickColor: function() {
-          var colorList = ['red', 'green', 'blue', 'yellow', 'purple'];
+          var colorList = ['red', 'green', 'blue', 'yellow', '#BD09BD'];
           var random = this.getRandomNumber(0, 5);
           return colorList[random];
 
@@ -230,10 +256,21 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+    font-style: italic;
+    font-size: 40px;
+    margin: 10px;
+}
+.gameWrapper {
+    padding-top: 150px;
+}
 a {
     color: #FFF;
     font-size: 20px;
     text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
 .board {
     width: 500px;
@@ -256,6 +293,16 @@ a {
     float: left;
     margin: 29%;
 }
+.dotPrev {
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    display: inline-block;
+    margin: 0 5px;
+}
+.colorDots {
+    margin: 5px 0;
+}
 .tile {
     width: 100%;
     height: 100%;
@@ -264,11 +311,46 @@ a {
     background-size: cover;
     background-repeat: no-repeat;
 }
+.insideTile {
+    height: 95%;
+    widows: 95%;
+}
+.bottomPanel {
+    width: 500px;
+    height: 75px;
+    margin: 0 auto;
+}
+.newGame {
+    float: left;
+    margin: 15px 0 0 15px;
+    width: 225px;
+    height: 50px;
+    padding: 10px 0;
+    background-color: green;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+}
+.score {
+    margin: 25px 90px 0 0;
+    font-size: 25px;
+    float: right;
+}
 @media all and (max-width: 500px) {
     .board {
         width: 350px;
         height: 350px;
     } 
+    .bottomPanel {
+        width: 350px;
+    }
+    .newGame {
+        width: 125px;
+    }
+    .score {
+        margin: 25px 50px 0 0;
+    }
 }
 
 </style>
