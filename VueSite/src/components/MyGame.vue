@@ -354,20 +354,15 @@ a {
     width: 500px;
     height: 500px;
     margin: 0 auto;
-    border: 1px solid #000;
-    border-bottom: none;
-    border-right: none;
 }
 .column {
-    height: 50px;
-    width: 500px;
+    height: 10%;
+    width: 100%;
 }
 .row {
-    height: 49px;
-    width: 49px;
+    height: 100%;
+    width: 10%;
     float: left;
-    border-right: 1px solid #000; 
-    border-bottom: 1px solid #000;
 }
 .dot {
     width: 45%;
@@ -383,6 +378,12 @@ a {
     background-image: url('../assets/defaultTile.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+}
+@media all and (max-width: 500px) {
+    .board {
+        width: 350px;
+        height: 350px;
+    } 
 }
 
 </style>

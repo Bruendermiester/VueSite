@@ -35,10 +35,12 @@ export default {
     text-decoration: none;
   }
   .gameApp {
-    background-color: #FFF;
     height: 200px;
     width: 200px;
     margin: 0 auto;
+    background-image: url('../assets/gameBoard.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
   }
   a .gameApp h1 {
     color: #000;
