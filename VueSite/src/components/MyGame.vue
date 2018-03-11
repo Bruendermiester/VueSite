@@ -22,11 +22,15 @@ export default {
     return {
         boardSize: [10,10], 
         board: {},
-        dotSelected: {
-            value: false,
-            cordinates: {}
+        selectedState: false,
+        dotSelected: {},
+        boardIndexList: {},
+        defaultSpot: {
+            isSelected: false,
+            isCovered: false,
+            color: ''
         },
-        boardIndexList: {}
+        destroy: false
     }
   },
   created: function() {
@@ -39,24 +43,20 @@ export default {
           //Generate a list(0-99) based on boardsize
           return Array.apply(null, {length: (this.boardSize[0] * this.boardSize[1])}).map(Number.call, Number);
       },
-      createBoard: function() {
+      createBoard() {
           var board = {
               rows: []
           }
           var index = 0;
-          for(var i = 0; i <= 9; i++) {
+          for(var i = 0; i < this.boardSize[0]; i++) {
               var row = {};
               row.spots = [];
-              for(var j = 0; j <= 9; j++) {
+              for(var j = 0; j < this.boardSize[1]; j++) {
                   var spot = {
-                      cordinates : {
-                        x: j,
-                        y: i
-                      },
                       index: index,
                       isSelected: false,
                       isCovered: false,
-                      color: 'red'
+                      color: ''
                   };
                   index++;
                   row.spots.push(spot);
@@ -67,44 +67,158 @@ export default {
         return board;
       },
       updateBoard: function() {
-          this.spawnDots(3);
       },
       selectDot: function(spot) {
-          if(!this.dotSelected.value && spot.isCovered) {
-              this.dotSelected.value = true;
-              this.dotSelected.cordinates = spot.cordinates;
+          if(!this.selectedState && spot.isCovered) {
+              this.selectedState = true;
               spot.isSelected = true;
+              this.dotSelected = spot; 
           }
-          else if(spot.cordinates === this.dotSelected.cordinates) {
-              this.dotSelected.value = false;
-              this.dotSelected.cordinates = {};
-              spot.isSelected = false;              
+          else if(spot.index === this.dotSelected.index) {
+              spot.isSelected = false; 
+              this.dotSelected = {};
+              this.selectedState = false;          
           }
-          else {
-              this.moveDot();
+          else if(!spot.isCovered) {
+              this.moveDot(spot);
           }
 
       },
-      moveDot: function() {
+      moveDot: function(spot) {
+        this.dotSelected.isSelected = false;
+
+        var location = this.findLocation(spot.index);
+        location.isCovered = true;
+        location.color = this.dotSelected.color;
+
+        var location2 = this.findLocation(this.dotSelected.index);
+        location2.isCovered = false;
+        location2.color = '';
+        var removeIndex = this.boardIndexList.indexOf(spot.index);
+        this.boardIndexList.splice(removeIndex,1);
+        this.boardIndexList.push(this.dotSelected.index);
+        this.dotSelected = {};
+        this.selectedState = false;
+
+        this.spawnDots(3);
+        this.checkConnectFive(0)
+
+      },
+      findLocation: function(index) {
+        for(var y = 0; y < this.board.rows.length; y++) {
+            for(var z = 0; z < this.board.rows[y].spots.length; z++) {   
+                if(index === this.board.rows[y].spots[z].index) {
+                    return this.board.rows[y].spots[z];
+                }
+            }
+        } 
+      },
+      checkConnectFive: function(val) {
+
+          for(var x = 0; x < (this.boardSize[0] * this.boardSize[1]); x=x+10) {
+              this.checkHorizontalRow(x, x);
+          }
+
+          for(var x = 0; x < this.boardSize[0]; x++) {
+              this.checkVirticalRow(x);
+          }
           
+      },
+      checkVirticalRow: function(val) {
+  
+        var x = val;
+        var y = 0;
+        this.destroy = false;
+        var arraySpots = [];
+        while(x < this.boardSize[1] * this.boardSize[0]) {
+            
+            arraySpots.push(this.findLocation(x));
+            if(!arraySpots[y].isCovered && this.destroy) {
+                break;
+            }      
+            if(!arraySpots[y].isCovered){
+                this.checkVirticalRow(x+10);
+                return;
+            }
+            if(!this.checkArrayColors(arraySpots) && this.destroy){
+                arraySpots.pop();
+                break;
+            }
+            else if(!this.checkArrayColors(arraySpots)){
+                this.checkVirticalRow(x);
+                return;                
+            }
+            if(arraySpots.length >= 5) {
+                this.destroy = true;
+            }
+            y++;
+            x = (x + 10);
+        }
+        if(this.destroy) {
+            for(var z = 0; z < arraySpots.length; z++) {
+                var spot = this.findLocation(arraySpots[z].index);
+                spot.color = '';
+                spot.isCovered = false;
+                this.boardIndexList.push(spot.index);
+            }
+        }
 
       },
-      checkConnectFive: function() {
-
+      checkHorizontalRow: function(val, offset) {
+          
+        offset = (Math.floor(offset/10) * 10);
+        var x = val;
+        var y = 0;
+        this.destroy = false;
+        var arraySpots = [];
+        while(x < this.boardSize[0] + offset) {
+            
+            arraySpots.push(this.findLocation(x));
+            if(!arraySpots[y].isCovered && this.destroy) {
+                break;
+            }      
+            if(!arraySpots[y].isCovered){
+                this.checkHorizontalRow(x+1, x);
+                return;
+            }
+            if(!this.checkArrayColors(arraySpots) && this.destroy){
+                arraySpots.pop();
+                break;
+            }
+            else if(!this.checkArrayColors(arraySpots)){
+                this.checkHorizontalRow(x, x);
+                return;                
+            }
+            if(arraySpots.length >= 5) {
+                this.destroy = true;
+            }
+            y++;
+            x++;
+        }
+        if(this.destroy) {
+            for(var z = 0; z < arraySpots.length; z++) {
+                var spot = this.findLocation(arraySpots[z].index);
+                spot.color = '';
+                spot.isCovered = false;
+                this.boardIndexList.push(spot.index);
+            }
+        }
+      },
+      checkArrayColors: function(array) {
+          for(var x = 0; x < array.length -1; x++) {
+            if(array[x].color !== array[x+1].color) {
+                return false;
+            }
+          }
+          return true;
       },
       spawnDots: function(numberToSpawn) {
           if(this.boardIndexList.length > 3) {
             for(var x = 0; x < numberToSpawn; x++) {
                 var index = this.getRandomNumber(0, this.boardIndexList.length);
-                var position = this.boardIndexList.splice(index, 1)[0];
-                for(var y = 0; y < this.board.rows.length; y++) {
-                    for(var z = 0; z < this.board.rows[y].spots.length; z++) {    
-                        if(position === this.board.rows[y].spots[z].index) {
-                            this.board.rows[y].spots[z].isCovered = true;
-                            this.board.rows[y].spots[z].color = this.pickColor();
-                        }
-                    }
-                }
+                var location = this.findLocation(this.boardIndexList.splice(index, 1)[0])
+                location.isCovered = true;
+                location.color = this.pickColor();
             }
           }
           else {
