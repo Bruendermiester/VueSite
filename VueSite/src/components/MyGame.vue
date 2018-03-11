@@ -30,7 +30,8 @@ export default {
             isCovered: false,
             color: ''
         },
-        destroy: false
+        destroy: false,
+        connect: false
     }
   },
   created: function() {
@@ -79,7 +80,7 @@ export default {
               this.dotSelected = {};
               this.selectedState = false;          
           }
-          else if(!spot.isCovered) {
+          else if(!spot.isCovered && this.selectedState) {
               this.moveDot(spot);
           }
 
@@ -100,8 +101,15 @@ export default {
         this.dotSelected = {};
         this.selectedState = false;
 
-        this.spawnDots(3);
-        this.checkConnectFive(0)
+
+        this.checkConnectFive();
+
+        if(!this.connect) {
+            this.spawnDots(3);
+            this.checkConnectFive();
+            this.connect = false;
+        }
+        this.connect = false;
 
       },
       findLocation: function(index) {
@@ -113,7 +121,7 @@ export default {
             }
         } 
       },
-      checkConnectFive: function(val) {
+      checkConnectFive: function() {
 
           for(var x = 0; x < (this.boardSize[0] * this.boardSize[1]); x=x+10) {
               this.checkHorizontalRow(x, x);
@@ -122,7 +130,101 @@ export default {
           for(var x = 0; x < this.boardSize[0]; x++) {
               this.checkVirticalRow(x);
           }
+
+           for(var y = 0; y < this.boardSize[0]; y++) {
+             for(var x = 0; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
+                 this.checkDiagonalRow(x + y, 99 - (y*10));
+             }          
+           }              
+
+          for(var y = 0; y < this.boardSize[0]; y++) {
+            for(var x = 9; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
+                this.checkDiagonalRowReverse(x - y, 90 + y);
+            }          
+          }          
           
+      },
+      checkDiagonalRowReverse: function(val, offset) {
+
+        var x = val;
+        var y = 0;
+        this.destroy = false;
+        var arraySpots = [];
+        while(x <= offset) {
+            
+            arraySpots.push(this.findLocation(x));
+            if(!arraySpots[y].isCovered && this.destroy) {
+                break;
+            }      
+            if(!arraySpots[y].isCovered){
+                this.checkDiagonalRowReverse(x + 9, offset);
+                return;
+            }
+            if(!this.checkArrayColors(arraySpots) && this.destroy){
+                arraySpots.pop();
+                break;
+            }
+            else if(!this.checkArrayColors(arraySpots)){
+                this.checkDiagonalRowReverse(x, offset);
+                return;                
+            }
+            if(arraySpots.length >= 5) {
+                this.destroy = true;
+            }
+            y++;
+            x = (x + 9);
+        }
+        if(this.destroy) {
+            for(var z = 0; z < arraySpots.length; z++) {
+                var spot = this.findLocation(arraySpots[z].index);
+                spot.color = '';
+                spot.isCovered = false;
+                this.boardIndexList.push(spot.index);
+                this.connect = true;
+            }
+        }
+      },      
+      checkDiagonalRow: function(val, offset) {
+
+        var x = val;
+        var y = 0;
+        this.destroy = false;
+        var arraySpots = [];
+        while(x <= offset) {
+            
+            arraySpots.push(this.findLocation(x));
+            if(!arraySpots[y].isCovered && this.destroy) {
+                break;
+            }      
+            if(!arraySpots[y].isCovered){
+                this.checkDiagonalRow(x+11, offset);
+                return
+            }
+            if(!this.checkArrayColors(arraySpots) && this.destroy){
+                arraySpots.pop();
+                break;
+            }
+            else if(!this.checkArrayColors(arraySpots)){
+                this.checkDiagonalRow(x, offset);
+                return;                
+            }
+            if(arraySpots.length >= 5) {
+                this.destroy = true;
+            }
+            y++;
+            x = (x + 11);
+        }
+        if(this.destroy) {
+            for(var z = 0; z < arraySpots.length; z++) {
+                var spot = this.findLocation(arraySpots[z].index);
+                spot.color = '';
+                spot.isCovered = false;
+                this.boardIndexList.push(spot.index);
+                this.connect = true;
+            }
+        }
+
+
       },
       checkVirticalRow: function(val) {
   
@@ -160,6 +262,7 @@ export default {
                 spot.color = '';
                 spot.isCovered = false;
                 this.boardIndexList.push(spot.index);
+                this.connect = true;
             }
         }
 
@@ -201,6 +304,7 @@ export default {
                 spot.color = '';
                 spot.isCovered = false;
                 this.boardIndexList.push(spot.index);
+                this.connect = true;
             }
         }
       },
@@ -266,11 +370,11 @@ a {
     border-bottom: 1px solid #000;
 }
 .dot {
-    width: 25%;
-    height: 25%;
+    width: 45%;
+    height: 45%;
     border-radius: 100px;
     float: left;
-    margin: 37%;
+    margin: 29%;
 }
 .tile {
     width: 100%;
