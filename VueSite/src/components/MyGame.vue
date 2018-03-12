@@ -2,14 +2,9 @@
   <div class="gameWrapper">
       <a href="#/">&lt; &nbsp; Back</a>
       <h1>Connect Five</h1>
-      <div class="colorDots">
-          <div class="dotPrev" :style="{backgroundColor: 'red'}"></div>
-          <div class="dotPrev" :style="{backgroundColor: 'blue'}"></div>
-          <div class="dotPrev" :style="{backgroundColor: 'yellow'}"></div>
-          <div class="dotPrev" :style="{backgroundColor: 'green'}"></div>
-          <div class="dotPrev" :style="{backgroundColor: '#BD09BD'}"></div>
-      </div>
-      
+        <div class="colorDots"v-for="dot in colorList">
+            <div class="dotPrev" :style="{backgroundColor: dot}"></div>
+        </div>
       <div class="board">
           <div class="column" v-for="row in board.rows">
               <div class="row" v-for="spot in row.spots">
@@ -42,7 +37,8 @@ var data = {
     },
     destroy: false,
     connect: false,
-    currentScore: 0
+    currentScore: 0,
+    colorList: ['red', 'green', 'blue', 'yellow', '#BD09BD']
 }    
 
 export default {
@@ -242,9 +238,8 @@ export default {
           
       },
       pickColor: function() {
-          var colorList = ['red', 'green', 'blue', 'yellow', '#BD09BD'];
           var random = this.getRandomNumber(0, 5);
-          return colorList[random];
+          return this.colorList[random];
 
       },
       getRandomNumber: function(min, max) {
@@ -297,11 +292,11 @@ a:hover {
     height: 20px;
     width: 20px;
     border-radius: 100%;
-    display: inline-block;
     margin: 0 5px;
 }
 .colorDots {
     margin: 5px 0;
+    display: inline-block;
 }
 .tile {
     width: 100%;
