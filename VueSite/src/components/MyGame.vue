@@ -346,6 +346,10 @@ a:hover {
     .score {
         margin: 25px 50px 0 0;
     }
+    .gameWrapper {
+        padding-top: 10px;
+    }
+
 }
 
 </style>

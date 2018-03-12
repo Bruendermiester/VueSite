@@ -53,4 +53,10 @@ export default {
   img {
     margin-top: 60px;
   }
+  @media all and (max-width: 500px) {
+    img {
+      width: 200px;
+      height: 200px;
+    }
+  }
 </style>
