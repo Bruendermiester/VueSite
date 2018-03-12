@@ -38,7 +38,7 @@ export default {
   .gameApp {
     height: 200px;
     width: 200px;
-    margin: 0 auto;
+    margin: 0 auto 30px;
     background-image: url('../assets/gameBoard.png');
     background-size: cover; 
     background-repeat: no-repeat;
