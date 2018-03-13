@@ -240,6 +240,9 @@ export default {
                 this.boardIndexList.push(spot.index);
                 this.connect = true;
                 this.currentScore = this.currentScore + 50;
+                if(z > 4){
+                    this.currentScore = this.currentScore + 50;
+                }
             }
         }
       },
