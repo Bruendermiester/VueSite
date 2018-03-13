@@ -2,24 +2,44 @@
   <div class="gameWrapper">
       <a href="#/">&lt; &nbsp; Back</a>
       <h1>Connect Five</h1>
-        <div class="colorDots"v-for="dot in colorList">
-            <div class="dotPrev" :style="{backgroundColor: dot}"></div>
+        <div class="scorePanel">
+            <div class="score">Score: <span>{{currentScore}}</span></div>
         </div>
-      <div class="board">
-          <div class="column" v-for="row in board.rows">
-              <div class="row" v-for="spot in row.spots">
-                  <div class="tile">
-                      <div class="insideTile" :style="[spot.isSelected ? {border: '1px solid #FFF'} : '', spot.isCovered ? {cursor: 'pointer'} : '' ]" @mousedown="selectDot(spot)">
-                        <div class="dot" :style="spot.isCovered ? {backgroundColor: spot.color} : '' "></div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+        <div class="nameForm" v-show="showNameEnter">
+            <h1>Congradulations!!!</h1>
+            <h2>Add Your Name to the high scores!</h2>
+            <input v-model="inputName" maxlength="3">
+            <button @click="inputName.length === 3 ? updateHighScores(): ''">Submit</button>
+            <h2 class="upper">{{ inputName }}</h2>
+        </div>
+      <div class="switcher" v-show="!showNameEnter">  
+        <div class="board" v-show="!highScore">
+            <div class="column" v-for="row in board.rows">
+                <div class="row" v-for="spot in row.spots">
+                    <div class="tile">
+                        <div class="insideTile" :style="[spot.isSelected ? {border: '1px solid #FFF'} : '', spot.isCovered ? {cursor: 'pointer'} : '' ]" @mousedown="selectDot(spot)">
+                            <div class="dot" :style="spot.isCovered ? {backgroundColor: spot.color} : '' "></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scoreBoard" v-show="highScore">
+            <h1>High Scores</h1>
+            <div class="scoreFrame">
+                <h2>Rank &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Score</h2>
+                <div class="scoreRow" v-for="(rank, index) in highScoreRanks">
+                    <div class="position">{{index + 1}}</div>
+                    <div class="name">{{rank.name}}</div>
+                    <div class="rankScore">{{rank.score}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottomPanel">
+            <button class="newGame" @click="restart()" >New Game</button>
+            <button class="scoreSwitch" @click="(highScore = !highScore)">High Scores</button>
+        </div>
       </div>
-      <div class="bottomPanel">
-        <button class="newGame" @click="restart()" >New Game</button>
-        <div class="score">Score: <span>{{currentScore}}</span></div>
-    </div>
   </div>
 </template>
 
@@ -38,7 +58,11 @@ var data = {
     destroy: false,
     connect: false,
     currentScore: 0,
-    colorList: ['red', 'green', 'blue', 'yellow', '#BD09BD']
+    highScore: false,
+    colorList: ['red', 'green', 'blue', 'yellow', '#BD09BD'],
+    highScoreRanks: [],
+    showNameEnter: false,
+    inputName: ''
 }    
 
 import astarObject from 'javascript-astar';
@@ -55,9 +79,48 @@ export default {
     this.currentScore = 0;
     this.connect = false;
     this.dotSelected = {};
-    this.destroy = false;      
+    this.destroy = false;    
+    this.highScoreRanks = [];
+    this.getHighScores();  
   },
   methods: {
+      getHighScores: function() {
+        this.$http.get('')
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                this.highScoreRanks = data;
+
+            });          
+      },
+      changeHighScores: function() {
+          var scoreObject = {
+              name: this.inputName,
+              score: this.currentScore
+          }
+
+          for(let x = 0; x < 10; x++) {
+              if(this.currentScore > this.highScoreRanks[x].score) {
+                  this.highScoreRanks.splice(x, 0, scoreObject);
+                  this.highScoreRanks.pop();
+                  return;
+              }
+          }          
+      },
+      updateHighScores: function() {
+
+        this.changeHighScores();
+
+        this.$http.put('', this.highScoreRanks)
+        .then(response => {
+            console.log(response);
+        }, error => {
+            console.log(error);
+        })
+        this.showNameEnter = !this.showNameEnter;
+        this.restart();
+      },
       generateIndexList() {
           //Generate a list(0-99) based on boardsize
           return Array.apply(null, {length: (this.boardSize[0] * this.boardSize[1])}).map(Number.call, Number);
@@ -70,6 +133,7 @@ export default {
         this.connect = false;
         this.dotSelected = {};
         this.destroy = false;
+        this.highScore = false;
       },
       createBoard() {
           var board = {
@@ -264,9 +328,21 @@ export default {
             }
           }
           else {
-              alert("You Lose!");
+              if(this.checkForHighScore()) {
+                  this.showNameEnter = !this.showNameEnter;
+              }
+              alert("GAME OVER");
+              this.restart();
           }
           
+      },
+      checkForHighScore: function() {
+          for(let x = 0; x < 10; x++) {
+              if(this.currentScore > this.highScoreRanks[x].score) {
+                  return true;
+              }
+          }
+          return false;
       },
       pickColor: function() {
           var random = this.getRandomNumber(0, 5);
@@ -298,6 +374,9 @@ a {
 a:hover {
     text-decoration: underline;
 }
+.upper {
+    text-transform: uppercase;
+}
 .board {
     width: 500px;
     height: 500px;
@@ -325,7 +404,7 @@ a:hover {
     border-radius: 100%;
     margin: 0 5px;
 }
-.colorDots {
+.scorePanel {
     margin: 5px 0;
     display: inline-block;
 }
@@ -346,7 +425,7 @@ a:hover {
     height: 75px;
     margin: 0 auto;
 }
-.newGame {
+.newGame, .scoreSwitch {
     float: left;
     margin: 15px 0 0 15px;
     width: 225px;
@@ -359,28 +438,52 @@ a:hover {
     cursor: pointer;
 }
 .score {
-    margin: 25px 90px 0 0;
     font-size: 25px;
-    float: right;
+}
+.scoreSwitch {
+    background-color: blue;
+}
+.scoreBoard {
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+}
+.scoreRow {
+    height: 40px;
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+}
+.name {
+    text-transform: uppercase;
+}
+.position, .name, .rankScore {
+    flex-grow: 1;
+    width: 33%;
+}
+.scoreBoard h1 {
+    margin-top: 0;
 }
 @media all and (max-width: 500px) {
-    .board {
+    .board, .scoreBoard {
         width: 350px;
         height: 350px;
     } 
     .bottomPanel {
         width: 350px;
     }
-    .newGame {
-        width: 125px;
+    .newGame, .scoreSwitch {
+        width: 150px;
     }
     .score {
-        margin: 25px 50px 0 0;
+        margin: 25px 20px 0 0;
     }
     .gameWrapper {
         padding-top: 10px;
     }
-
+    .scoreRow {
+        height: 24px;
+    }
 }
 
 </style>
