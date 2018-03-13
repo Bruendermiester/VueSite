@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <img src="../assets/jonLogo_White.png">
+    <img src="../assets/JonLogo_White.png">
     <h1>{{ msg }}</h1>
     <h2> by <br><br> {{ author }} </h2>
 

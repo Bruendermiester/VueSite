@@ -331,8 +331,11 @@ export default {
               if(this.checkForHighScore()) {
                   this.showNameEnter = !this.showNameEnter;
               }
-              alert("GAME OVER");
-              this.restart();
+              else {
+                alert("GAME OVER");
+                this.restart();
+              }
+
           }
           
       },
