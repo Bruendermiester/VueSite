@@ -41,6 +41,8 @@ var data = {
     colorList: ['red', 'green', 'blue', 'yellow', '#BD09BD']
 }    
 
+import astarObject from 'javascript-astar';
+
 export default {
   name: 'Game',
   data () {
@@ -82,7 +84,9 @@ export default {
                       index: index,
                       isSelected: false,
                       isCovered: false,
-                      color: ''
+                      color: '',
+                      x: i,
+                      y: j
                   };
                   index++;
                   row.spots.push(spot);
@@ -103,9 +107,33 @@ export default {
               this.selectedState = false;          
           }
           else if(!spot.isCovered && this.selectedState) {
+              var graph = new astarObject.Graph(this.getCurrentBoardState());
+              var start = graph.grid[this.dotSelected.x][this.dotSelected.y];
+              var end = graph.grid[spot.x][spot.y];
+              var result = astarObject.astar.search(graph, start, end);
+              if(result.length === 0) { return;}
               this.moveDot(spot);
           }
 
+      },
+      getCurrentBoardState: function() {
+        var currentGraph = [];
+        var row = []
+
+        for(var x = 0; x < this.boardSize[0]; x++) {
+            row = [];
+            for(var y = 0; y < this.boardSize[1]; y++) {
+               if(this.board.rows[x].spots[y].isCovered) {
+                   row.push(0);
+               }
+               else{
+                   row.push(1);
+               }
+
+            }            
+            currentGraph.push(row)
+        }
+        return currentGraph;
       },
       moveDot: function(spot) {
         this.dotSelected.isSelected = false;
