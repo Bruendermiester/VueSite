@@ -150,7 +150,8 @@ export default {
                       isCovered: false,
                       color: '',
                       x: i,
-                      y: j
+                      y: j,
+                      remove: false
                   };
                   index++;
                   row.spots.push(spot);
@@ -252,7 +253,8 @@ export default {
             for(var x = 9; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
                 this.checkDiagonalRowReverse(x - y, 90 + y);
             }          
-        }          
+        }     
+        this.removeDots();     
       },
       checkDiagonalRowReverse: function(val, offset) {
         this.traverse(val, offset, 9, this.checkDiagonalRowReverse);
@@ -299,15 +301,27 @@ export default {
         if(this.destroy) {
             for(var z = 0; z < arraySpots.length; z++) {
                 var spot = this.findLocation(arraySpots[z].index);
-                spot.color = '';
-                spot.isCovered = false;
-                this.boardIndexList.push(spot.index);
+                spot.remove = true;
                 this.connect = true;
-                this.currentScore = this.currentScore + 50;
-                if(z > 4){
-                    this.currentScore = this.currentScore + 50;
-                }
             }
+        }
+      },
+      removeDots: function() {
+        var counter = 0;
+        for(var y = 0; y < this.board.rows.length; y++) {
+            for(var z = 0; z < this.board.rows[y].spots.length; z++) {   
+                if(this.board.rows[y].spots[z].remove) {
+                    counter++;
+                    this.board.rows[y].spots[z].remove = false;
+                    this.board.rows[y].spots[z].color = '';
+                    this.board.rows[y].spots[z].isCovered = false;
+                    this.boardIndexList.push(this.board.rows[y].spots[z].index);
+                    this.currentScore = this.currentScore + 50;
+                    if(counter > 5){
+                        this.currentScore = this.currentScore + 50;
+                    }
+                }
+            } 
         }
       },
       checkArrayColors: function(array) {
@@ -330,6 +344,7 @@ export default {
           else {
               if(this.checkForHighScore()) {
                   this.showNameEnter = !this.showNameEnter;
+                  this.getHighScores();
               }
               else {
                 alert("GAME OVER");
