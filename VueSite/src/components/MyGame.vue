@@ -226,6 +226,8 @@ export default {
         }
         this.connect = false;
 
+        this.removeDots();  
+
       },
       findLocation: function(index) {
         for(var y = 0; y < this.board.rows.length; y++) {
@@ -253,8 +255,7 @@ export default {
             for(var x = 9; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
                 this.checkDiagonalRowReverse(x - y, 90 + y);
             }          
-        }     
-        this.removeDots();     
+        }        
       },
       checkDiagonalRowReverse: function(val, offset) {
         this.traverse(val, offset, 9, this.checkDiagonalRowReverse);
