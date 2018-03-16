@@ -16,6 +16,9 @@
         <div class="board" v-show="!highScore">
             <div class="column" v-for="row in board.rows">
                 <div class="row" v-for="spot in row.spots">
+                    <transition name="fade" @after-enter="spot.explosion= false;">
+                        <div v-if="spot.explosion" class="explosion" :style="{backgroundColor: spot.explosioncolor}"> </div>
+                    </transition>
                     <div class="tile">
                         <div class="insideTile" :style="[spot.isSelected ? {border: '1px solid #FFF'} : '', spot.isCovered ? {cursor: 'pointer'} : '' ]" @mousedown="selectDot(spot)">
                             <div class="dot" :style="spot.isCovered ? {backgroundColor: spot.color} : '' "></div>
@@ -44,6 +47,7 @@
 </template>
 
 <script>
+
 var data = {
     boardSize: [10,10], 
     board: {},
@@ -151,7 +155,9 @@ export default {
                       color: '',
                       x: i,
                       y: j,
-                      remove: false
+                      remove: false,
+                      explosion: false,
+                      explosioncolor: ''
                   };
                   index++;
                   row.spots.push(spot);
@@ -178,6 +184,11 @@ export default {
               var result = astarObject.astar.search(graph, start, end);
               if(result.length === 0) { return;}
               this.moveDot(spot);
+          }
+          else if(this.selectedState){
+              spot.isSelected = true;
+              this.dotSelected.isSelected = false;
+              this.dotSelected = spot;
           }
 
       },
@@ -314,6 +325,7 @@ export default {
                 if(this.board.rows[y].spots[z].remove) {
                     counter++;
                     this.board.rows[y].spots[z].remove = false;
+                    this.board.rows[y].spots[z].explosioncolor = this.board.rows[y].spots[z].color;
                     this.board.rows[y].spots[z].color = '';
                     this.board.rows[y].spots[z].isCovered = false;
                     this.boardIndexList.push(this.board.rows[y].spots[z].index);
@@ -321,6 +333,10 @@ export default {
                     if(counter > 5){
                         this.currentScore = this.currentScore + 50;
                     }
+                    this.board.rows[y].spots[z].explosion = true;
+                    this.board.rows[y].spots[z].time = counter;
+                    
+                    
                 }
             } 
         }
@@ -377,6 +393,34 @@ export default {
 </script>
 
 <style scoped>
+
+.explosion {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    z-index: 5;
+    position: absolute;
+}
+.fade-enter {
+    opacity: .8; 
+    -webkit-transform: scale(.4);
+    -ms-transform: scale(.4);
+    transform: scale(.4);
+}
+.fade-enter-active {
+    transition: all .2s;
+    opacity: .5; 
+}
+.fade-leave {  
+    opacity: 0; 
+}
+.fade-leave-active {
+    transition: all .2s;
+    opacity: 0; 
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);    
+}
 h1 {
     font-style: italic;
     font-size: 40px;
@@ -502,6 +546,10 @@ a:hover {
     }
     .scoreRow {
         height: 24px;
+    }
+    .explosion {
+        height: 35px;
+        width: 35px;
     }
 }
 

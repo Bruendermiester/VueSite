@@ -11,6 +11,7 @@ Vue.use(VueResource);
 
 Vue.http.options.root = 'https://personalvuewebsite.firebaseio.com/data.json';
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
