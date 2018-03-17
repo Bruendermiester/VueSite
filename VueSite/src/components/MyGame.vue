@@ -403,7 +403,7 @@ export default {
 }
 
 .fade-enter-active {
-    animation: fade-out-and-explode .2s linear
+    animation: fade-out-and-explode .4s linear
 }
 .fade-leave {  
     transform: scale(1.2);
