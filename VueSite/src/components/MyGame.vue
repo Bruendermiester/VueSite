@@ -63,7 +63,6 @@ var data = {
     connect: false,
     currentScore: 0,
     highScore: false,
-    colorList: ['red', 'green', 'blue', 'yellow', '#BD09BD'],
     highScoreRanks: [],
     showNameEnter: false,
     inputName: ''
@@ -399,28 +398,34 @@ export default {
     width: 50px;
     border-radius: 100%;
     z-index: 5;
-    position: absolute;
+    position: absolute; 
 }
-.fade-enter {
-    opacity: .8; 
-    -webkit-transform: scale(.4);
-    -ms-transform: scale(.4);
-    transform: scale(.4);
-}
+
 .fade-enter-active {
-    transition: all .2s;
-    opacity: .5; 
+    animation: fade-out-and-explode .2s linear
 }
 .fade-leave {  
-    opacity: 0; 
+    transform: scale(1.2);
+    opacity: 0;
 }
-.fade-leave-active {
-    transition: all .2s;
-    opacity: 0; 
-    -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.2);    
+@keyframes fade-out-and-explode {
+  0% {
+    transform: scale(.4);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(.8);
+    opacity: .5;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
 }
+
+
+
+
 h1 {
     font-style: italic;
     font-size: 40px;
