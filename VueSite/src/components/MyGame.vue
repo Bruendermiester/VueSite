@@ -63,6 +63,7 @@ var data = {
     connect: false,
     currentScore: 0,
     highScore: false,
+    colorList: ['red', 'blue', 'yellow', 'green', '#BD09BD'],
     highScoreRanks: [],
     showNameEnter: false,
     inputName: ''
