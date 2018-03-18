@@ -255,7 +255,7 @@ export default {
             this.checkHorizontalRow(x, x+9);
         }
         for(var x = 0; x < this.boardSize[0]; x++) {
-            this.checkVirticalRow(x, 99);
+            this.checkVerticalRow(x, 99);
         }
         for(var y = 0; y < this.boardSize[0]; y++) {
             for(var x = 0; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
@@ -264,7 +264,7 @@ export default {
         }              
         for(var y = 0; y < this.boardSize[0]; y++) {
             for(var x = 9; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
-                this.checkDiagonalRowReverse(x - y, 90 + y);
+                this.checkDiagonalRowReverse(x - y, 90 - (y*10) + 9);
             }          
         }        
       },
@@ -274,8 +274,8 @@ export default {
       checkDiagonalRow: function(val, offset) {
         this.traverse(val, offset, 11, this.checkDiagonalRow);
       },
-      checkVirticalRow: function(val, offset) {
-        this.traverse(val, offset, 10, this.checkVirticalRow);
+      checkVerticalRow: function(val, offset) {
+        this.traverse(val, offset, 10, this.checkVerticalRow);
       },
       checkHorizontalRow: function(val, offset) {
         this.traverse(val, offset, 1, this.checkHorizontalRow);
@@ -403,7 +403,7 @@ export default {
 }
 
 .fade-enter-active {
-    animation: fade-out-and-explode .4s linear
+    animation: fade-out-and-explode .4s linear;
 }
 .fade-leave {  
     transform: scale(1.2);
@@ -423,8 +423,6 @@ export default {
     opacity: 0;
   }
 }
-
-
 
 
 h1 {
