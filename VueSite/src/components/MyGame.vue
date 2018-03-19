@@ -262,9 +262,13 @@ export default {
                 this.checkDiagonalRow(x + y, 99 - (y*10));
             }          
         }              
+        var xCounter = 0;
         for(var y = 0; y < this.boardSize[0]; y++) {
+            xCounter = 0;
             for(var x = 9; x < this.boardSize[0] * this.boardSize[1]; x=x+10) {
-                this.checkDiagonalRowReverse(x - y, 90 - (y*10) + 9);
+                
+                this.checkDiagonalRowReverse(x - y, (90 - (y*10) + xCounter));
+                xCounter++;
             }          
         }        
       },
