@@ -39,8 +39,9 @@
             </div>
         </div>
         <div class="bottomPanel">
-            <button class="newGame" @click="restart()" >New Game</button>
-            <button class="scoreSwitch" @click="(highScore = !highScore)">High Scores</button>
+            <button class="newGame" v-if="!highScore" @click="restart()" >New Game</button>
+            <button class="scoreSwitch" v-if="!highScore" @click="(highScore = !highScore)">High Scores</button>
+            <button class="scoreSwitch" v-if="highScore" @click="(highScore = !highScore)">Back To Game</button>
         </div>
       </div>
   </div>
@@ -497,8 +498,7 @@ a:hover {
     margin: 0 auto;
 }
 .newGame, .scoreSwitch {
-    float: left;
-    margin: 15px 0 0 15px;
+    margin: 15px auto;
     width: 225px;
     height: 50px;
     padding: 10px 0;
@@ -507,6 +507,7 @@ a:hover {
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
+    border-radius: 25px;
 }
 .score {
     font-size: 25px;
