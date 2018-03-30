@@ -20,7 +20,7 @@ body {
   background-image: url("./assets/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
+  height: 100vh;
 }
 @media all and (max-width: 500px) {
   body {

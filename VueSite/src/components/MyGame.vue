@@ -16,7 +16,7 @@
         <div class="board" v-show="!highScore">
             <div class="column" v-for="row in board.rows">
                 <div class="row" v-for="spot in row.spots">
-                    <transition name="fade" @after-enter="spot.explosion= false;">
+                    <transition name="fade" @after-enter="spot.explosion = false;">
                         <div v-if="spot.explosion" class="explosion" :style="{backgroundColor: spot.explosioncolor}"> </div>
                     </transition>
                     <div class="tile">
@@ -77,16 +77,41 @@ export default {
   data () {
     return data
   },
+  localStorage: {
+      score: {
+          type: Number
+      }
+  },
   created: function() {
-    this.boardIndexList = this.generateIndexList();
-    this.board = this.createBoard();
-    this.spawnDots(3);
-    this.currentScore = 0;
+    let currentBoard = JSON.parse(this.$localStorage.get('board'));
+    let currentBoardIndexLIst = JSON.parse(this.$localStorage.get('index'));
+    let currentScore = this.$localStorage.get('score');
+
     this.connect = false;
     this.dotSelected = {};
     this.destroy = false;    
     this.highScoreRanks = [];
     this.getHighScores();  
+
+    if(currentBoard === {} || currentBoard === null) {
+        this.boardIndexList = this.generateIndexList();
+        this.board = this.createBoard();
+        this.spawnDots(3);
+        this.currentScore = 0;
+        
+    }
+    else {
+        this.board = currentBoard;
+        this.currentScore = currentScore;
+        this.boardIndexList = currentBoardIndexLIst;
+
+        for(var y = 0; y < this.board.rows.length; y++) {
+            for(var z = 0; z < this.board.rows[y].spots.length; z++) {   
+                this.board.rows[y].spots[z].explosion = false;
+            }
+        } 
+    }
+
   },
   methods: {
       getHighScores: function() {
@@ -139,6 +164,9 @@ export default {
         this.dotSelected = {};
         this.destroy = false;
         this.highScore = false;
+        this.$localStorage.remove('board');
+        this.$localStorage.remove('index');
+        this.$localStorage.remove('score');
       },
       createBoard() {
           var board = {
@@ -240,6 +268,13 @@ export default {
 
         this.removeDots();  
 
+        this.saveBoard();
+
+      },
+      saveBoard: function() {
+        this.$localStorage.set('board', JSON.stringify(this.board));
+        this.$localStorage.set('index', JSON.stringify(this.boardIndexList));
+        this.$localStorage.set('score', this.currentScore);
       },
       findLocation: function(index) {
         for(var y = 0; y < this.board.rows.length; y++) {
@@ -508,6 +543,7 @@ a:hover {
     font-size: 20px;
     cursor: pointer;
     border-radius: 25px;
+    outline: none;
 }
 .score {
     font-size: 25px;
