@@ -6,7 +6,7 @@
             <ul>
             <li><a href="/">HOME</a></li>
             <li><a href="#/resume">RESUME</a></li>
-            <li><a href="#/game">PROJECTS</a></li>
+            <li><a href="#/projects">PROJECTS</a></li>
             <li><a href="/">ABOUT</a></li>
             </ul>
         </div>
@@ -627,6 +627,7 @@ a:hover {
     }
     .gameWrapper {
         padding-top: 10px;
+        height: auto;
     }
     .scoreRow {
         height: 24px;

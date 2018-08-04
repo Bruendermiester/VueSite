@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import MainPage from '@/components/MainPage'
 import MyGame from '@/components/MyGame'
 import Resume from '@/components/Resume'
+import Projects from '@/components/Projects'
 
 Vue.use(Router)
 
@@ -14,7 +15,7 @@ export default new Router({
       component: MainPage
     },
     {
-      path: '/game',
+      path: '/connectFive',
       name: 'MyGame',
       component: MyGame
     },
@@ -22,6 +23,11 @@ export default new Router({
       path: '/resume',
       name: 'Resume',
       component: Resume
+    },
+    {
+      path: '/projects',
+      name: 'Projects',
+      component: Projects
     }
   ]
 })

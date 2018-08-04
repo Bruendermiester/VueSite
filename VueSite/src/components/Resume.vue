@@ -7,7 +7,7 @@
             <ul>
               <li><a href="/">HOME</a></li>
               <li><a href="#/resume">RESUME</a></li>
-              <li><a href="#/game">PROJECTS</a></li>
+              <li><a href="#/projects">PROJECTS</a></li>
               <li><a href="#" v-scroll-to="'#section-two'">ABOUT</a></li>
             </ul>
           </div>
@@ -81,7 +81,7 @@
 	                        <ul>
 	                            <li> Vuejs game logic</li>
                                 <li> Firebase database </li>
-	                            <li> <a href="https://jonathanbruenderman.com/#/game">https://jonathanbruenderman.com/#/game</a> </li>
+	                            <li> <a href="https://jonathanbruenderman.com/#/connectFive">https://jonathanbruenderman.com/#/connectFive</a> </li>
 	                            <br>
 	                        </ul>
 	                    </p>                        
