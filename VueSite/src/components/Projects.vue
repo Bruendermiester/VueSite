@@ -15,7 +15,7 @@
         <div class="project-wrapper" v-if="view == 'projects'">
             <div class="project-container" v-for="project in projects">
                 <h2 align='left'>{{ project.title }}</h2>
-                <a class="project"v-on:click="view=project.show" v-bind:href="project.link">
+                <a class="project"v-on:click="view=project.show; displayObject = project" v-bind:href="project.link">
                     <div class="image-container"><img v-bind:src="project.displayImg"></div>
                     <div class="project-description">
                         <h2>{{ project.descriptionTitle }}</h2>
@@ -24,8 +24,18 @@
                 </a>
             </div>                                                   
         </div>
-        <div class="detailView" v-if="view == 'detailView'">
-            <div class="mainImg"></div>
+        <div class="detail-view" v-if="view == 'detailView'">
+            <h1><span><a target="_self" href="#/projects">Back</a></span>{{ displayObject.title }}</h1>
+            <div class="detail-wrapper">
+                <img class="main-img" v-bind:src="displayObject.displayImg">
+                <div class="img-block">
+                    <img class="img1"  v-bind:src="displayObject.img1">
+                    <img class="img2"  v-bind:src="displayObject.img2">
+                    <img class="img3"  v-bind:src="displayObject.img3">
+                </div>
+            </div>
+             <h1>Description</h1>
+             <h3>{{ displayObject.description }}</h3>
         </div>
 
     </div>
@@ -38,6 +48,7 @@ export default {
   data () {
     return {
         view: 'projects',
+        displayObject: {},
         projects: [
             {
                 displayImg: require('../assets/gameBoard.png'),
@@ -48,6 +59,19 @@ export default {
             },
             {
                 displayImg: require('../assets/recipeApp.png'),
+                img1: require('../assets/recipeCard.png'),
+                img2: require('../assets/recipeCreate.png'),
+                img3: require('../assets/recipeMobile.png'),
+                descriptionTitle: 'Cook Book / Recipe Web App',
+                description: 'This project I created when I built a MEAN (MongoDB, Express, Angularjs, Node) stack psersonal website. I created this fully responsive web app to easily add and remove family recipes',
+                title: 'Cook Book',
+                show: 'detailView'
+            },
+            {
+                displayImg: require('../assets/recipeApp.png'),
+                img1: require('../assets/recipeCard.png'),
+                img2: require('../assets/recipeCreate.png'),
+                img3: require('../assets/recipeMobile.png'),
                 descriptionTitle: 'Cook Book / Recipe Web App',
                 description: 'This project I created when I built a MEAN (MongoDB, Express, Angularjs, Node) stack psersonal website. I created this fully responsive web app to easily add and remove family recipes',
                 title: 'Cook Book',
@@ -60,15 +84,13 @@ export default {
                 show: 'detailView'
             },
             {
-                displayImg: require('../assets/gameBoard.png'),
-                description: 'test',
-                title: 'Connect Five',
-                show: 'detailView'
-            },
-            {
-                displayImg: require('../assets/gameBoard.png'),
-                description: 'test',
-                title: 'Connect Five',
+                displayImg: require('../assets/recipeApp.png'),
+                img1: require('../assets/recipeCard.png'),
+                img2: require('../assets/recipeCreate.png'),
+                img3: require('../assets/recipeMobile.png'),
+                descriptionTitle: 'Cook Book / Recipe Web App',
+                description: 'This project I created when I built a MEAN (MongoDB, Express, Angularjs, Node) stack psersonal website. I created this fully responsive web app to easily add and remove family recipes',
+                title: 'Cook Book',
                 show: 'detailView'
             },
             {
@@ -160,5 +182,68 @@ export default {
   }
   .project-description h3 {
       font-weight: normal;
+  }
+  .detail-view {
+      margin-bottom: 200px;
+  }
+  .detail-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      width: 85%;
+      margin: 0 auto;
+      max-height: 800px;
+  }
+  .main-img {
+      flex: 1;
+      max-width: 50%;
+      max-height: 50%;
+  }
+  .img-block {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 50%;
+      max-height: 50%;
+  }
+  .img1 {
+    flex: 1;
+    width: 90%;
+    max-height: 50%;
+    padding: 0 5px 0;
+  }
+  .img2 {
+      flex: 1;
+      width: 45%;
+      max-height: 45%;
+      padding: 5px;
+  }
+  .img3 {
+      flex: 1;
+      max-width: 25%;;
+      max-height: 45%;   
+      padding: 5px;   
+  }
+  .detail-view a {
+      color: #FFF;
+      float: left;
+      text-decoration: none;
+      font-size: 20px;
+  }
+@media all and (max-width: 500px) {
+  .main-img {
+      flex: 1;
+      max-width: 100%;
+      max-height: 400px;
+  }
+  .img-block {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 100%;
+      max-height: 400px;
+  }
+  .detail-wrapper {
+      height: auto;
   }  
+}  
 </style>
