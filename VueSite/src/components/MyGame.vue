@@ -2,12 +2,14 @@
   <div class="gameWrapper">
       <div class="header">
         <div class="column"><img src="../assets/JonLogo_White.png"></div>
-        <div class="column"></div>
-        <ul class="column">
-          <li><a href="/">HOME</a></li>
-          <li><a href="/">RESUME</a></li>
-          <li><a href="#/game">PROJECTS</a></li>s
-        </ul>
+        <div class="column">
+            <ul>
+            <li><a href="/">HOME</a></li>
+            <li><a href="#/resume">RESUME</a></li>
+            <li><a href="#/game">PROJECTS</a></li>
+            <li><a href="/">ABOUT</a></li>
+            </ul>
+        </div>
       </div>      
       <h1>Connect Five</h1>
         <div class="scorePanel">
@@ -487,7 +489,10 @@ export default {
 }
 ul {
     display: flex;
-}
+    padding: 0;
+    width: 75%;
+    margin-top: 50px;
+  }
 .header li {
     flex: 1;
     list-style: none;

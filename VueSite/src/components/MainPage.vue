@@ -1,25 +1,29 @@
 <template>
   <div class="main">
     <div id="section-one">
-      <div class="header">
-        <div class="column"><img src="../assets/JonLogo_White.png"></div>
-        <div class="column"></div>
-        <ul class="column">
-          <li><a href="/">HOME</a></li>
-          <li><a href="/">RESUME</a></li>
-          <li><a href="#/game">PROJECTS</a></li>
-          <li><a href="#" v-scroll-to="'#section-two'">ABOUT</a></li>
-        </ul>
-      </div>
-      <div class="title">
-        <h1>Hi, I'm <span>{{ author }}</span></h1>
-        <h2>{{ msg }}</h2>
+      <div class="shade">
+        <div class="header">
+          <div class="column"><img src="../assets/JonLogo_White.png"></div>
+          <div class="column">
+            <ul>
+              <li><a href="/">HOME</a></li>
+              <li><a href="#/resume">RESUME</a></li>
+              <li><a href="#/game">PROJECTS</a></li>
+              <li><a href="#" v-scroll-to="'#section-two'">ABOUT</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="title">
+          <h1>Hi, I'm <span>{{ author }}</span></h1>
+          <h2>{{ msg }}</h2>
+        </div>
       </div>
     </div>
     <div id="section-two">
       <div class="about-block">
         <div class="info">
           <h1>About me</h1>
+          <div class="about-title">{{ title }}</div>
           <div class="description">{{ description }}</div>
         </div>
       </div>
@@ -34,7 +38,8 @@ export default {
     return {
       msg: 'Software Engineer / Web Developer / UI Designer',
       author: 'Jonathan Bruenderman',
-      description: 'My name is Jonathan Bruenderman. I live in the greater Seattle area.'
+      title: 'My name is Jonathan Bruenderman, I am a Software Engineer',
+      description: 'I live in the greater Seattle area.'
     }
   }
 }
@@ -50,6 +55,10 @@ export default {
   #section-two {
     height: 500px;
     background-color: #CCC;
+  }
+  .shade {
+    background-color:rgba(0, 0, 0, 0.5);
+    height: 100%;
   }
   .about-block {
     padding: 20px 20px 4px 20px;
@@ -85,6 +94,9 @@ export default {
   }
   ul {
     display: flex;
+    padding: 0;
+    width: 75%;
+    margin-top: 50px;
   }
   .header li {
     flex: 1;
