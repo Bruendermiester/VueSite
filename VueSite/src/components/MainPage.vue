@@ -1,14 +1,29 @@
 <template>
-  <div class="hello">
-    <img src="../assets/JonLogo_White.png">
-    <h1>{{ msg }}</h1>
-    <h2> by <br><br> {{ author }} </h2>
-
-    <a href="#/game">
-      <div class="gameApp">
-        <h1>My Game</h1>
+  <div class="main">
+    <div id="section-one">
+      <div class="header">
+        <div class="column"><img src="../assets/JonLogo_White.png"></div>
+        <div class="column"></div>
+        <ul class="column">
+          <li><a href="/">HOME</a></li>
+          <li><a href="/">RESUME</a></li>
+          <li><a href="#/game">PROJECTS</a></li>
+          <li><a href="#" v-scroll-to="'#section-two'">ABOUT</a></li>
+        </ul>
       </div>
-    </a>
+      <div class="title">
+        <h1>Hi, I'm <span>{{ author }}</span></h1>
+        <h2>{{ msg }}</h2>
+      </div>
+    </div>
+    <div id="section-two">
+      <div class="about-block">
+        <div class="info">
+          <h1>About me</h1>
+          <div class="description">{{ description }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,16 +32,78 @@ export default {
   name: 'MainPage',
   data () {
     return {
-      msg: 'Welcome to My Vue.js Website',
-      author: 'Jonathan Bruenderman'
+      msg: 'Software Engineer / Web Developer / UI Designer',
+      author: 'Jonathan Bruenderman',
+      description: 'My name is Jonathan Bruenderman. I live in the greater Seattle area.'
     }
   }
 }
 </script>
 
 <style scoped>
+  #section-one {
+    background-image: url("../assets/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+  }
+  #section-two {
+    height: 500px;
+    background-color: #CCC;
+  }
+  .about-block {
+    padding: 20px 20px 4px 20px;
+    height: 95%;
+  }
+  .info {
+    border: 2px solid #000;
+    height: 95%;
+  }
+  .info h1 {
+    font-size: 36;
+    color: #000;
+    text-align: left;
+    padding: 20px;
+    margin: 0;
+    font-style: italic
+  }
+  .description {
+    color: #000;
+  }
+  .header {
+    display: flex;
+  }
+  .column {
+    flex: 1
+  }
+  .header img {
+    width: 30px;
+    height: 30px;
+    float: left;
+    padding: 10px;
+    margin: 0;
+  }
+  ul {
+    display: flex;
+  }
+  .header li {
+    flex: 1;
+    list-style: none;
+  }
+  .header a {
+    color: #FFF;
+  }
+  .title {
+    padding-top: 350px;
+  }
+  h1 {
+    font-size: 42px;
+  }
   h1, h2 {
     font-weight: normal;
+  }
+  h1 span {
+    font-weight: bold;
   }
   h2 {
     font-style: italic;

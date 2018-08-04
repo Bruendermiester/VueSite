@@ -1,6 +1,14 @@
 <template>
   <div class="gameWrapper">
-      <a href="#/">&lt; &nbsp; Back</a>
+      <div class="header">
+        <div class="column"><img src="../assets/JonLogo_White.png"></div>
+        <div class="column"></div>
+        <ul class="column">
+          <li><a href="/">HOME</a></li>
+          <li><a href="/">RESUME</a></li>
+          <li><a href="#/game">PROJECTS</a></li>s
+        </ul>
+      </div>      
       <h1>Connect Five</h1>
         <div class="scorePanel">
             <div class="score">Score: <span>{{currentScore}}</span></div>
@@ -463,7 +471,30 @@ export default {
     opacity: 0;
   }
 }
-
+.header {
+    display: flex;
+    margin-bottom: 150px;
+}
+.column {
+    flex: 1
+}
+.header img {
+    width: 30px;
+    height: 30px;
+    float: left;
+    padding: 10px;
+    margin: 0;
+}
+ul {
+    display: flex;
+}
+.header li {
+    flex: 1;
+    list-style: none;
+}
+.header a {
+    color: #FFF;
+}
 
 h1 {
     font-style: italic;
@@ -471,7 +502,10 @@ h1 {
     margin: 10px;
 }
 .gameWrapper {
-    padding-top: 150px;
+    background-image: url("../assets/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;    
 }
 a {
     color: #FFF;
