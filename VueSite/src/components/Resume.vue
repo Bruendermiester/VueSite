@@ -129,15 +129,12 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
   }
-  .shade {
-    background-color:rgba(0, 0, 0, 0.5);
-    height: 100%;
-  }
   .header {
     display: flex;
   }
   .column {
-    flex: 1
+    flex: 1;
+    padding: 5px;
   }
   #tech-skills ul {
     display: flex;
@@ -162,4 +159,9 @@ export default {
   .header a {
     color: #FFF;
   }
+@media all and (max-width: 500px) {
+    .sheet {
+        width: 95%;
+    }
+}  
 </style>
