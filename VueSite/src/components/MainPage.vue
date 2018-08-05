@@ -9,7 +9,7 @@
               <li><a href="/">HOME</a></li>
               <li><a href="#/resume">RESUME</a></li>
               <li><a href="#/projects">PROJECTS</a></li>
-              <li><a href="#" v-scroll-to="'#section-two'">ABOUT</a></li>
+              <li><a href="/" v-scroll-to="'#section-two'">ABOUT</a></li>
             </ul>
           </div>
         </div>
@@ -162,10 +162,10 @@ export default {
       font-size: 16px;
     }
     .info img {
-      width: 300px;
+      width: 250px;
       height: 200px;
       float: left;
-      margin: 0 0 0 50px;
+      margin: 35px 0 0 23px;
     }    
   }
 </style>

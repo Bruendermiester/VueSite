@@ -16,7 +16,7 @@
             <div id="center">
 	            <div id="resume">
 	                <h1 align="center"> Jonathan Bruenderman </h1><hr><hr>
-                    <h4 align="center">Email: JonathanBruenderman@gmail.com <br>Cell: (360) 448-5800</h4><hr>
+                    <h4 align="center">Email: JonathanBruenderman@gmail.com <br>Website: JonathanBruenderman.com<br>Cell: (360) 448-5800</h4><hr>
 	            </div>
 	            <div id="summary">
                     <h3>Summary</h3>
@@ -81,7 +81,7 @@
 	                        <ul>
 	                            <li> Vuejs game logic</li>
                                 <li> Firebase database </li>
-	                            <li> <a href="https://jonathanbruenderman.com/#/connectFive">https://jonathanbruenderman.com/#/connectFive</a> </li>
+	                            <li> More info on my website </li>
 	                            <br>
 	                        </ul>
 	                    </p>                        
@@ -164,6 +164,9 @@ export default {
 @media all and (max-width: 500px) {
     .sheet {
         width: 95%;
+    }
+    #tech-skills ul {
+        padding: 0 5px 0 0
     }
 }  
 </style>
