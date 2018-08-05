@@ -25,7 +25,10 @@
             </div>                                                   
         </div>
         <div class="detail-view" v-if="view == 'detailView'">
-            <h1><span><a target="_self" href="#/projects">Back</a></span>{{ displayObject.title }}</h1>
+            <div class="project-title">
+                <span><a v-on:click="view='projects'">Back</a></span>
+                <h1>{{ displayObject.title }}</h1>
+            </div>
             <div class="detail-wrapper">
                 <img class="main-img" v-bind:src="displayObject.displayImg">
                 <div class="img-block">
@@ -68,38 +71,24 @@ export default {
                 show: 'detailView'
             },
             {
-                displayImg: require('../assets/recipeApp.png'),
-                img1: require('../assets/recipeCard.png'),
-                img2: require('../assets/recipeCreate.png'),
-                img3: require('../assets/recipeMobile.png'),
-                descriptionTitle: 'Cook Book / Recipe Web App',
-                description: 'This project I created when I built a MEAN (MongoDB, Express, Angularjs, Node) stack psersonal website. I created this fully responsive web app to easily add and remove family recipes',
-                title: 'Cook Book',
+                displayImg: require('../assets/contentLauncherHome.png'),
+                img1: require('../assets/contentLauncherUrl.png'),
+                img2: require('../assets/contentLauncherCreate.png'),
+                img3: require('../assets/contentLauncherCommitted.png'),
+                descriptionTitle: 'Content Launcher',
+                description: 'Internal tool for helping launch ads on various platforms. This tool allowed users to go from launching multiple ads a day, to hundreds on different platforms.',
+                title: 'Content Launcher',
                 show: 'detailView'
             },
             {
-                displayImg: require('../assets/gameBoard.png'),
-                description: 'test',
-                title: 'Connect Five',
+                displayImg: require('../assets/Stuff-SERP-4colV2_jy.png'),
+                img1: require('../assets/Social_view.png'),
+                img2: require('../assets/Metadata_view.png'),
+                img3: require('../assets/Monatization_view.png'),
+                description: 'Signals was a serp page created with angularjs and a python/flash server. It would ingest content from publishers and crunch internal algorithms to show you how well you content was doing. It also allowed you to sort and search for the best data.',
+                title: 'Signals',
                 show: 'detailView'
-            },
-            {
-                displayImg: require('../assets/recipeApp.png'),
-                img1: require('../assets/recipeCard.png'),
-                img2: require('../assets/recipeCreate.png'),
-                img3: require('../assets/recipeMobile.png'),
-                descriptionTitle: 'Cook Book / Recipe Web App',
-                description: 'This project I created when I built a MEAN (MongoDB, Express, Angularjs, Node) stack psersonal website. I created this fully responsive web app to easily add and remove family recipes',
-                title: 'Cook Book',
-                show: 'detailView'
-            },
-            {
-                displayImg: require('../assets/gameBoard.png'),
-                description: 'test',
-                title: 'Connect Five',
-                show: 'detailView'
-            },                                                            
-                                                        
+            }                                                                                                     
         ]
     }
   }
@@ -142,6 +131,7 @@ export default {
   }
   .header a {
     color: #FFF;
+    text-decoration: none;
   }
   .project-wrapper {
     margin: 100px auto;
@@ -219,7 +209,7 @@ export default {
   }
   .img3 {
       flex: 1;
-      max-width: 25%;;
+      max-width: 45%;;
       max-height: 45%;   
       padding: 5px;   
   }
@@ -228,6 +218,18 @@ export default {
       float: left;
       text-decoration: none;
       font-size: 20px;
+  }
+  .detail-view h3 {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+  }
+  .project-title {
+      width: 85%;
+      margin: 0 auto;
+  }
+  .project-title span {
+      cursor: pointer;
   }
 @media all and (max-width: 500px) {
   .main-img {
@@ -244,6 +246,10 @@ export default {
   }
   .detail-wrapper {
       height: auto;
-  }  
+  }
+  .project-container {
+      width: 95%;
+      margin: 0 auto;
+  }
 }  
 </style>

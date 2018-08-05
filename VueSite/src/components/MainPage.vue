@@ -147,5 +147,11 @@ export default {
       width: 200px;
       height: 200px;
     }
+    .title {
+      padding-top: 150px;
+    }
+    .title h2 {
+      font-size: 16px;
+    }
   }
 </style>
