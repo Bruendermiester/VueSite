@@ -25,6 +25,7 @@
           <h1>About me</h1>
           <div class="about-title">{{ title }}</div>
           <div class="description">{{ description }}</div>
+          <img src="../assets/profilePic.jpg">
         </div>
       </div>
     </div>
@@ -47,13 +48,14 @@ export default {
 
 <style scoped>
   #section-one {
-    background-image: url("../assets/background.jpg");
+    background-image: url("../assets/test.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: right;
     height: 100vh;
   }
   #section-two {
-    height: 500px;
+    height: 600px;
     background-color: #CCC;
   }
   .shade {
@@ -67,6 +69,12 @@ export default {
   .info {
     border: 2px solid #000;
     height: 95%;
+  }
+  .info img {
+    width: 500px;
+    height: 400px;
+    float: left;
+    margin: 0 0 0 50px;
   }
   .info h1 {
     font-size: 36;
@@ -153,5 +161,11 @@ export default {
     .title h2 {
       font-size: 16px;
     }
+    .info img {
+      width: 300px;
+      height: 200px;
+      float: left;
+      margin: 0 0 0 50px;
+    }    
   }
 </style>

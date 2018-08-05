@@ -8,7 +8,7 @@
               <li><a href="/">HOME</a></li>
               <li><a href="#/resume">RESUME</a></li>
               <li><a href="#/projects">PROJECTS</a></li>
-              <li><a href="#" v-scroll-to="'#section-two'">ABOUT</a></li>
+              <li><a href="/" >ABOUT</a></li>
             </ul>
           </div>
         </div>
