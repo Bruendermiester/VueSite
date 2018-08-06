@@ -107,6 +107,7 @@ export default {
     let currentBoardIndexLIst = JSON.parse(this.$localStorage.get('index'));
     let currentScore = this.$localStorage.get('score');
 
+    this.menuTrigger = false;
     this.connect = false;
     this.dotSelected = {};
     this.destroy = false;    
