@@ -178,9 +178,8 @@ export default {
     height: 100%;
     position: absolute;
     left: -75%;
-    background-image: url('../assets/background.jpg');
-    background-size: cover; 
-    background-repeat: no-repeat;
+    background-color: #000;
+    opacity: .9;
     transition: all 1s;
     border-right: 2px solid black;
     top: 0;    

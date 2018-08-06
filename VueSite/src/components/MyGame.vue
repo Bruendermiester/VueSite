@@ -637,9 +637,8 @@ a:hover {
     height: 100%;
     position: absolute;
     left: -75%;
-    background-image: url('../assets/background.jpg');
-    background-size: cover; 
-    background-repeat: no-repeat;
+    background-color: #000;
+    opacity: .9;
     transition: all 1s;
     border-right: 2px solid black;
     top: 0;      
@@ -662,7 +661,7 @@ a:hover {
     font-size: 25px;
     text-decoration: none;
   }  
-@media all and (max-width: 500px) {
+@media all and (max-width: 600px) {
     .header {
         margin-bottom: 0;
     }
@@ -682,12 +681,14 @@ a:hover {
     .newGame, .scoreSwitch {
         width: 150px;
     }
+    .gameWrapper h1 {
+        margin: 10px 0 0 0;
+    }
     .score {
-        margin: 25px 20px 0 0;
+        margin: 0 20px 0 0;
     }
     .gameWrapper {
         padding-top: 10px;
-        height: auto;
     }
     .scoreRow {
         height: 24px;
