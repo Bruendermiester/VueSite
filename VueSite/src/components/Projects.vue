@@ -1,9 +1,17 @@
 <template>
   <div class="main">
+    <div class="mobile-menu" v-bind:class="{ show: menuTrigger}">
+      <ul>
+        <li><a href="/">HOME</a></li>
+        <li><a href="#/resume">RESUME</a></li>
+        <li><a href="#/projects">PROJECTS</a></li>
+        <li><a href="/">ABOUT</a></li>
+      </ul>      
+    </div>      
     <div id="section-one">
         <div class="header">
           <div class="column"><img src="../assets/JonLogo_White.png"></div>
-          <div class="column">
+          <div class="column menu">
             <ul>
               <li><a href="/">HOME</a></li>
               <li><a href="#/resume">RESUME</a></li>
@@ -11,6 +19,7 @@
               <li><a href="/">ABOUT</a></li>
             </ul>
           </div>
+          <div class="mobile-menu-button" v-on:click="menuTrigger = !menuTrigger"></div>
         </div>
         <div class="project-wrapper" v-if="view == 'projects'">
             <div class="project-container" v-for="project in projects">
@@ -50,6 +59,7 @@ export default {
   name: 'Projects',
   data () {
     return {
+        menuTrigger: false,
         view: 'projects',
         displayObject: {},
         projects: [
@@ -234,7 +244,52 @@ export default {
   .project-title span {
       cursor: pointer;
   }
+  .mobile-menu-button {
+    display: none;
+    margin: 20px;
+    background-image: url('../assets/hamburger.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+  }
+  .mobile-menu {
+    width: 75%;
+    height: 100%;
+    position: absolute;
+    left: -75%;
+    background-image: url('../assets/background.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    transition: all 1s;
+    border-right: 2px solid black;
+    top: 0;      
+  }
+  .show {
+    left: 0;
+  }
+  .mobile-menu ul {
+    text-align: left;
+    float: left;
+    display: inline;
+    list-style: none;
+    margin: 45px;
+  }
+  .mobile-menu li {
+    height: 60px;
+  }  
+  .mobile-menu li a {
+    color: #FFF;
+    font-size: 25px;
+    text-decoration: none;
+  }    
 @media all and (max-width: 500px) {
+  .menu {
+     display: none;
+  }
+  .mobile-menu-button {
+      display: block;
+  }    
   .main-img {
       flex: 1;
       max-width: 100%;

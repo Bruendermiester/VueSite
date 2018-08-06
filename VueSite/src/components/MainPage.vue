@@ -1,31 +1,42 @@
 <template>
   <div class="main">
-    <div id="section-one">
-      <div class="shade">
-        <div class="header">
-          <div class="column"><img src="../assets/JonLogo_White.png"></div>
-          <div class="column">
-            <ul>
-              <li><a href="/">HOME</a></li>
-              <li><a href="#/resume">RESUME</a></li>
-              <li><a href="#/projects">PROJECTS</a></li>
-              <li><a href="/" v-scroll-to="'#section-two'">ABOUT</a></li>
-            </ul>
+    <div class="mobile-menu" v-bind:class="{ show: menuTrigger}">
+      <ul>
+        <li><a href="/">HOME</a></li>
+        <li><a href="#/resume">RESUME</a></li>
+        <li><a href="#/projects">PROJECTS</a></li>
+        <li><a href="/" v-scroll-to="'#section-two'">ABOUT</a></li>
+      </ul>      
+    </div>
+    <div class="sections">
+      <div id="section-one">
+        <div class="shade">
+          <div class="header">
+            <div class="column"><img src="../assets/JonLogo_White.png"></div>
+            <div class="column menu">
+              <ul>
+                <li><a href="/">HOME</a></li>
+                <li><a href="#/resume">RESUME</a></li>
+                <li><a href="#/projects">PROJECTS</a></li>
+                <li><a href="/" v-scroll-to="'#section-two'">ABOUT</a></li>
+              </ul>
+            </div>
+            <div class="mobile-menu-button" v-on:click="menuTrigger = !menuTrigger"></div>
+          </div>
+          <div class="title">
+            <h1>Hi, I'm <span>{{ author }}</span></h1>
+            <h2>{{ msg }}</h2>         
           </div>
         </div>
-        <div class="title">
-          <h1>Hi, I'm <span>{{ author }}</span></h1>
-          <h2>{{ msg }}</h2>         
-        </div>
       </div>
-    </div>
-    <div id="section-two">
-      <div class="about-block">
-        <div class="info">
-          <h1>About me</h1>
-          <div class="about">
-            <img src="../assets/profilePic.jpg">
-            <div class="about-title">{{ title }}</div>
+      <div id="section-two">
+        <div class="about-block">
+          <div class="info">
+            <h1>About me</h1>
+            <div class="about">
+              <img src="../assets/profilePic.jpg">
+              <div class="about-title">{{ title }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -38,6 +49,7 @@ export default {
   name: 'MainPage',
   data () {
     return {
+      menuTrigger: false,
       msg: 'Software Engineer / Web Developer / UI Designer',
       author: 'Jonathan Bruenderman',
       title: '  My name is Jonathan Bruenderman, I am a Software Engineer. I have had experience doing ' +
@@ -100,7 +112,7 @@ export default {
     width: 30px;
     height: 30px;
     float: left;
-    padding: 10px;
+    padding: 20px;
     margin: 0;
   }
   ul {
@@ -149,25 +161,55 @@ export default {
     cursor: pointer;
     text-decoration: none;
   }
-  .gameApp {
-    height: 200px;
-    width: 200px;
-    margin: 0 auto 30px;
-    background-image: url('../assets/gameBoard.png');
-    background-size: cover; 
-    background-repeat: no-repeat;
-  }
-  a .gameApp h1 {
-    color: #000;
-    height: 30px;
-    width: 150px;
-    margin: 0 auto;
-    padding-top: 75px;
-  }
   img {
     margin-top: 60px;
   }
+  .mobile-menu-button {
+    display: none;
+    margin: 20px;
+    background-image: url('../assets/hamburger.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+  }
+  .mobile-menu {
+    width: 75%;
+    height: 100%;
+    position: absolute;
+    left: -75%;
+    background-image: url('../assets/background.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    transition: all 1s;
+    border-right: 2px solid black;
+    top: 0;    
+  }
+  .show {
+    left: 0;
+  }
+  .mobile-menu ul {
+    text-align: left;
+    float: left;
+    display: inline;
+    list-style: none;
+    margin: 45px;
+  }
+  .mobile-menu li {
+    height: 60px;
+  }  
+  .mobile-menu li a {
+    color: #FFF;
+    font-size: 25px;
+    text-decoration: none;
+  }  
   @media all and (max-width: 500px) {
+    .menu {
+      display: none;
+    }
+    .mobile-menu-button {
+      display: block;
+    }
     img {
       width: 200px;
       height: 200px;
