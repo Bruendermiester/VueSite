@@ -115,7 +115,7 @@ export default {
 <style scoped>
   .sheet {
       background-color: #FFF;
-      width: 50%;
+      width: 60%;
       margin: 0 auto;
       border: 1px solid #000;
       text-align: left;

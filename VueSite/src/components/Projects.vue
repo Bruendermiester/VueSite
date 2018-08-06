@@ -14,7 +14,7 @@
         </div>
         <div class="project-wrapper" v-if="view == 'projects'">
             <div class="project-container" v-for="project in projects">
-                <h2 align='left'>{{ project.title }}</h2>
+                <h2>{{ project.title }}</h2>
                 <a class="project"v-on:click="view=project.show; displayObject = project" v-bind:href="project.link">
                     <div class="image-container"><img v-bind:src="project.displayImg"></div>
                     <div class="project-description">
@@ -141,6 +141,9 @@ export default {
       width: 75%;
       margin: 20px 0 30px 20px;
   }
+  .project-container h2 {
+      text-align: left;
+  }
   .project {
       display: flex;
       flex-wrap: wrap;
@@ -244,12 +247,28 @@ export default {
       max-width: 100%;
       max-height: 400px;
   }
+  .image-container img {
+      width: 300px;
+      height: 300px;
+  }
   .detail-wrapper {
       height: auto;
   }
-  .project-container {
+  .project-wrapper {
       width: 95%;
+  }
+  .project-container {
+      width: 88%;
       margin: 0 auto;
+  }
+  .project-container h2 {
+      text-align: center;
+  }
+  .project-description h2 {
+      font-size: 18px; 
+  }  
+  .project-description h3 {
+      font-size: 14px; 
   }
 }  
 </style>

@@ -15,7 +15,7 @@
         </div>
         <div class="title">
           <h1>Hi, I'm <span>{{ author }}</span></h1>
-          <h2>{{ msg }}</h2>
+          <h2>{{ msg }}</h2>         
         </div>
       </div>
     </div>
@@ -23,9 +23,10 @@
       <div class="about-block">
         <div class="info">
           <h1>About me</h1>
-          <div class="about-title">{{ title }}</div>
-          <div class="description">{{ description }}</div>
-          <img src="../assets/profilePic.jpg">
+          <div class="about">
+            <img src="../assets/profilePic.jpg">
+            <div class="about-title">{{ title }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -39,8 +40,12 @@ export default {
     return {
       msg: 'Software Engineer / Web Developer / UI Designer',
       author: 'Jonathan Bruenderman',
-      title: 'My name is Jonathan Bruenderman, I am a Software Engineer',
-      description: 'I live in the greater Seattle area.'
+      title: '  My name is Jonathan Bruenderman, I am a Software Engineer. I have had experience doing ' +
+             'both front end and back end web development, as well as some design work when needed. ' +
+             'I grew up in Vancouver, WA. Yes Vancouver WA, not Vancouver BC... I got my associates ' +
+             'degree in Science transerfer at Clark College while I was there. I moved to Bellingham ' +
+             'WA to finish up my Bachelor of Science. After that I moved down to the greater Seattle ' +
+             'area.',
     }
   }
 }
@@ -56,7 +61,6 @@ export default {
   }
   #section-two {
     height: 600px;
-    background-color: #CCC;
   }
   .shade {
     background-color:rgba(0, 0, 0, 0.5);
@@ -68,10 +72,9 @@ export default {
   }
   .info {
     border: 2px solid #000;
-    height: 95%;
+
   }
   .info img {
-    width: 500px;
     height: 400px;
     float: left;
     margin: 0 0 0 50px;
@@ -119,6 +122,20 @@ export default {
   h1 {
     font-size: 42px;
   }
+  .about {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+  }
+  .about-title {
+    color: #000;
+    flex: 4;
+    text-align: left;
+    margin: 30px;
+  }
+  .about img {
+    flex: 1;
+  }
   h1, h2 {
     font-weight: normal;
   }
@@ -162,10 +179,9 @@ export default {
       font-size: 16px;
     }
     .info img {
-      width: 250px;
-      height: 200px;
-      float: left;
-      margin: 35px 0 0 23px;
+      height: 250px;
+      margin: 0;
+      width: 100%
     }    
   }
 </style>
