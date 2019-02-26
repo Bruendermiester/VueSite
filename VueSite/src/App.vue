@@ -17,10 +17,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #FFF;
-  background-image: url("./assets/background.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
 }
 @media all and (max-width: 500px) {
   body {

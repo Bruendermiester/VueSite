@@ -1,6 +1,25 @@
 <template>
   <div class="gameWrapper">
-      <a href="#/">&lt; &nbsp; Back</a>
+    <div class="mobile-menu" v-bind:class="{ show: menuTrigger}">
+      <ul>
+        <li><a href="/">HOME</a></li>
+        <li><a href="#/resume">RESUME</a></li>
+        <li><a href="#/projects">PROJECTS</a></li>
+        <li><a href="/">ABOUT</a></li>
+      </ul>      
+    </div>      
+      <div class="header">
+        <div class="column"><img src="../assets/JonLogo_White.png"></div>
+        <div class="column menu">
+            <ul>
+            <li><a href="/">HOME</a></li>
+            <li><a href="#/resume">RESUME</a></li>
+            <li><a href="#/projects">PROJECTS</a></li>
+            <li><a href="/">ABOUT</a></li>
+            </ul>
+        </div>
+        <div class="mobile-menu-button" v-on:click="menuTrigger = !menuTrigger"></div>
+      </div>      
       <h1>Connect Five</h1>
         <div class="scorePanel">
             <div class="score">Score: <span>{{currentScore}}</span></div>
@@ -16,7 +35,7 @@
         <div class="board" v-show="!highScore">
             <div class="column" v-for="row in board.rows">
                 <div class="row" v-for="spot in row.spots">
-                    <transition name="fade" @after-enter="spot.explosion= false;">
+                    <transition name="fade" @after-enter="spot.explosion = false;">
                         <div v-if="spot.explosion" class="explosion" :style="{backgroundColor: spot.explosioncolor}"> </div>
                     </transition>
                     <div class="tile">
@@ -50,6 +69,7 @@
 <script>
 
 var data = {
+    menuTrigger: false,
     boardSize: [10,10], 
     board: {},
     selectedState: false,
@@ -77,16 +97,42 @@ export default {
   data () {
     return data
   },
+  localStorage: {
+      score: {
+          type: Number
+      }
+  },
   created: function() {
-    this.boardIndexList = this.generateIndexList();
-    this.board = this.createBoard();
-    this.spawnDots(3);
-    this.currentScore = 0;
+    let currentBoard = JSON.parse(this.$localStorage.get('board'));
+    let currentBoardIndexLIst = JSON.parse(this.$localStorage.get('index'));
+    let currentScore = this.$localStorage.get('score');
+
+    this.menuTrigger = false;
     this.connect = false;
     this.dotSelected = {};
     this.destroy = false;    
     this.highScoreRanks = [];
     this.getHighScores();  
+
+    if(currentBoard === {} || currentBoard === null) {
+        this.boardIndexList = this.generateIndexList();
+        this.board = this.createBoard();
+        this.spawnDots(3);
+        this.currentScore = 0;
+        
+    }
+    else {
+        this.board = currentBoard;
+        this.currentScore = currentScore;
+        this.boardIndexList = currentBoardIndexLIst;
+
+        for(var y = 0; y < this.board.rows.length; y++) {
+            for(var z = 0; z < this.board.rows[y].spots.length; z++) {   
+                this.board.rows[y].spots[z].explosion = false;
+            }
+        } 
+    }
+
   },
   methods: {
       getHighScores: function() {
@@ -139,6 +185,9 @@ export default {
         this.dotSelected = {};
         this.destroy = false;
         this.highScore = false;
+        this.$localStorage.remove('board');
+        this.$localStorage.remove('index');
+        this.$localStorage.remove('score');
       },
       createBoard() {
           var board = {
@@ -240,6 +289,13 @@ export default {
 
         this.removeDots();  
 
+        this.saveBoard();
+
+      },
+      saveBoard: function() {
+        this.$localStorage.set('board', JSON.stringify(this.board));
+        this.$localStorage.set('index', JSON.stringify(this.boardIndexList));
+        this.$localStorage.set('score', this.currentScore);
       },
       findLocation: function(index) {
         for(var y = 0; y < this.board.rows.length; y++) {
@@ -428,7 +484,34 @@ export default {
     opacity: 0;
   }
 }
-
+.header {
+    display: flex;
+    margin-bottom: 150px;
+    text-decoration: none;
+}
+.column {
+    flex: 1
+}
+.header img {
+    width: 30px;
+    height: 30px;
+    float: left;
+    padding: 10px;
+    margin: 0;
+}
+ul {
+    display: flex;
+    padding: 0;
+    width: 75%;
+    margin-top: 50px;
+  }
+.header li {
+    flex: 1;
+    list-style: none;
+}
+.header a {
+    color: #FFF;
+}
 
 h1 {
     font-style: italic;
@@ -436,7 +519,10 @@ h1 {
     margin: 10px;
 }
 .gameWrapper {
-    padding-top: 150px;
+    background-image: url("../assets/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;    
 }
 a {
     color: #FFF;
@@ -508,6 +594,7 @@ a:hover {
     font-size: 20px;
     cursor: pointer;
     border-radius: 25px;
+    outline: none;
 }
 .score {
     font-size: 25px;
@@ -536,7 +623,54 @@ a:hover {
 .scoreBoard h1 {
     margin-top: 0;
 }
-@media all and (max-width: 500px) {
+  .mobile-menu-button {
+    display: none;
+    margin: 20px;
+    background-image: url('../assets/hamburger.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+  }
+  .mobile-menu {
+    width: 75%;
+    height: 100%;
+    position: absolute;
+    left: -75%;
+    background-color: #000;
+    opacity: .9;
+    transition: all 1s;
+    border-right: 2px solid black;
+    top: 0;      
+  }
+  .show {
+    left: 0;
+  }
+  .mobile-menu ul {
+    text-align: left;
+    float: left;
+    display: inline;
+    list-style: none;
+    margin: 45px;
+  }
+  .mobile-menu li {
+    height: 60px;
+  }  
+  .mobile-menu li a {
+    color: #FFF;
+    font-size: 25px;
+    text-decoration: none;
+  }  
+@media all and (max-width: 600px) {
+    .header {
+        margin-bottom: 0;
+    }
+    .menu {
+      display: none;
+    }
+    .mobile-menu-button {
+      display: block;
+    }    
     .board, .scoreBoard {
         width: 350px;
         height: 350px;
@@ -547,8 +681,11 @@ a:hover {
     .newGame, .scoreSwitch {
         width: 150px;
     }
+    .gameWrapper h1 {
+        margin: 10px 0 0 0;
+    }
     .score {
-        margin: 25px 20px 0 0;
+        margin: 0 20px 0 0;
     }
     .gameWrapper {
         padding-top: 10px;
