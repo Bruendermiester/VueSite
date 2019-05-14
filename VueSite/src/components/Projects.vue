@@ -25,7 +25,9 @@
             <div class="project-container" v-for="project in projects">
                 <h2>{{ project.title }}</h2>
                 <a class="project"v-on:click="view=project.show; displayObject = project" v-bind:href="project.link">
-                    <div class="image-container"><img v-bind:src="project.displayImg"></div>
+                    <div class="image-container">
+                        <div class="display-img" v-bind:style="{ backgroundImage: 'url(' + project.displayImg + ')' }"></div>
+                    </div>
                     <div class="project-description">
                         <h2>{{ project.descriptionTitle }}</h2>
                         <h3>{{ project.description }}</h3>
@@ -39,10 +41,10 @@
                 <h1>{{ displayObject.title }}</h1>
             </div>
             <div class="detail-wrapper">
-                <img class="main-img" v-bind:src="displayObject.displayImg">
+                <div class="main-img" v-bind:style="{ backgroundImage: 'url(' + displayObject.displayImg + ')' }"></div>
                 <div class="img-block">
-                    <img class="img1"  v-bind:src="displayObject.img1">
-                    <img class="img2"  v-bind:src="displayObject.img2">
+                    <div class="img1" v-bind:style="{ backgroundImage: 'url(' + displayObject.img1 + ')' }"></div>
+                    <div class="img2" v-bind:style="{ backgroundImage: 'url(' + displayObject.img2 + ')' }"></div>
                 </div>
             </div>
              <h1>Description</h1>
@@ -203,10 +205,20 @@ export default {
       margin: 150px auto;
       max-height: 800px;
   }
+  .display-img {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 150px;
+    margin-top: 20px;
+  }
   .main-img {
-      flex: 1;
-      max-width: 500px;
-      max-height: 500px;
+    flex: 1;
+    max-width: 500px;
+    max-height: 500px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 415px;      
+    margin: 10px;
   }
   .img-block {
       flex: 1;
@@ -216,12 +228,18 @@ export default {
     width: 90%;
     max-height: 50%;
     padding: 0 5px 0;
+    height: 210px;
+    background-size: cover;
+    margin: 10px;
   }
   .img2 {
-      flex: 1;
-      width: 90%;
-      max-height: 50%;
-      padding: 5px;
+    flex: 1;
+    width: 90%;
+    max-height: 50%;
+    padding: 5px;
+    height: 210px;
+    background-size: cover;
+    margin: 10px;
   }
   .detail-view a {
       color: #FFF;
