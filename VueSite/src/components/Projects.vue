@@ -325,6 +325,10 @@ export default {
       display: block;
       width: auto;
   }
+  .img1, .img2 {
+      background-size: contain;
+      background-repeat: no-repeat;
+  }
   .project-wrapper {
       width: 95%;
   }
