@@ -305,9 +305,9 @@ export default {
       display: block;
   }    
   .main-img {
-      flex: 1;
-      max-width: 100%;
-      max-height: 400px;
+    max-width: 100%;
+    max-height: 400px;
+    width: 100%;      
   }
   .img-block {
       flex: 1;
@@ -322,6 +322,8 @@ export default {
   }
   .detail-wrapper {
       height: auto;
+      display: block;
+      width: auto;
   }
   .project-wrapper {
       width: 95%;
