@@ -43,7 +43,6 @@
                 <div class="img-block">
                     <img class="img1"  v-bind:src="displayObject.img1">
                     <img class="img2"  v-bind:src="displayObject.img2">
-                    <img class="img3"  v-bind:src="displayObject.img3">
                 </div>
             </div>
              <h1>Description</h1>
@@ -71,15 +70,23 @@ export default {
                 link: '#/connectFive'
             },
             {
+                displayImg: require('../assets/lolgsMain.png'),
+                img1: require('../assets/currentGame.png'),
+                img2: require('../assets/matchDetailView.png'),
+                descriptionTitle: 'LOL.GS: Vue.js Single Page Web Application',
+                description: 'LOL.GS is meant to be an easy to use website for getting stats and game knowledge for past or present League of Legends games. Hopefully it will encourage more people to understand the game better and give insights on what they are doing right and what they are doing wrong. The idea is to create a clean UI with less ads and better stats than the leading applications.',
+                title: 'LOL.GS',
+                show: 'detailView'
+            },
+            {
                 displayImg: require('../assets/recipeApp.png'),
                 img1: require('../assets/recipeCard.png'),
                 img2: require('../assets/recipeCreate.png'),
-                img3: require('../assets/recipeMobile.png'),
                 descriptionTitle: 'Cook Book / Recipe Web App',
                 description: 'This project I created when I built a MEAN (MongoDB, Express, Angularjs, Node) stack psersonal website. I created this fully responsive web app to easily add and remove family recipes',
                 title: 'Cook Book',
                 show: 'detailView'
-            },
+            },            
             {
                 displayImg: require('../assets/contentLauncherHome.png'),
                 img1: require('../assets/contentLauncherUrl.png'),
@@ -192,21 +199,17 @@ export default {
   .detail-wrapper {
       display: flex;
       flex-wrap: wrap;
-      width: 85%;
-      margin: 0 auto;
+      width: 50%;
+      margin: 150px auto;
       max-height: 800px;
   }
   .main-img {
       flex: 1;
-      max-width: 50%;
-      max-height: 50%;
+      max-width: 500px;
+      max-height: 500px;
   }
   .img-block {
       flex: 1;
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 50%;
-      max-height: 50%;
   }
   .img1 {
     flex: 1;
@@ -216,15 +219,9 @@ export default {
   }
   .img2 {
       flex: 1;
-      width: 45%;
-      max-height: 45%;
+      width: 90%;
+      max-height: 50%;
       padding: 5px;
-  }
-  .img3 {
-      flex: 1;
-      max-width: 45%;;
-      max-height: 45%;   
-      padding: 5px;   
   }
   .detail-view a {
       color: #FFF;
