@@ -539,6 +539,9 @@ a:hover {
     width: 500px;
     height: 500px;
     margin: 0 auto;
+    border-image: url('../assets/defaultTile.jpg') 10;
+    border-width: 15px;
+    border-style: solid;
 }
 .column {
     height: 10%;
