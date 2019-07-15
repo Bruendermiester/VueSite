@@ -54,7 +54,20 @@
 	                <div class="project">
                         <h3>Experience</h3>
                         <p>
-	                        <b>Assosciate Softwar Engineer - Nov 2015 to Current</b><br>
+	                        <b>Softwar Engineer - Aug 2018 to Current</b><br>
+                            <b>System 1</b>
+	                        <ul>
+	                            <li>Ad Network Internal Tools</li>
+	                            <ul>
+                                <li>Ad Campaign Content Launcher (Facebook, Gemini, Outbrain, etc) </li>
+                                <li>Angularjs Front-end</li> 
+                                <li>Python, Flash Back-end server</li>
+                              </ul>
+	                            <br>
+	                        </ul>
+	                    </p>                        
+                        <p>
+	                        <b>Assosciate Softwar Engineer - Nov 2015 to Aug 2018</b><br>
                             <b>System 1</b>
 	                        <ul>
 	                            <li>React/Redux quiz platform</li>
