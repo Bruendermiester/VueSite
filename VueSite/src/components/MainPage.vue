@@ -52,12 +52,10 @@ export default {
       menuTrigger: false,
       msg: 'Software Engineer / Web Developer / UI Designer',
       author: 'Jonathan Bruenderman',
-      title: '  My name is Jonathan Bruenderman, I am a Software Engineer. I have had experience doing ' +
-             'both front end and back end web development, as well as some design work when needed. ' +
-             'I grew up in Vancouver, WA. Yes Vancouver WA, not Vancouver BC... I got my associates ' +
-             'degree in Science transerfer at Clark College while I was there. I moved to Bellingham ' +
-             'WA to finish up my Bachelor of Science. After that I moved down to the greater Seattle ' +
-             'area.',
+      title: '  My name is Jonathan Bruenderman, I am a Software Engineer. I have 5 years of experience as a  ' +
+             'full stack developer, mainly focused on building and maintaining web api interterfaces and applications with a focus with ' +
+             'Javascript and Python. I have used most of the current front-end frameworks including Vue.js, Angular.js, React.js. ' + 
+             'However the thing I take the most pride in is my communication and organisational skills.'
     }
   }
 }
@@ -83,8 +81,6 @@ export default {
     height: 95%;
   }
   .info {
-    border: 2px solid #000;
-
   }
   .info img {
     height: 400px;
@@ -144,6 +140,7 @@ export default {
     flex: 4;
     text-align: left;
     margin: 30px;
+    font-size: 24px;
   }
   .about img {
     flex: 1;

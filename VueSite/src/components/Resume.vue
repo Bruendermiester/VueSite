@@ -36,14 +36,14 @@
                         <h3>Skill Highlights</h3>
 	                    <ul style="list-style-type:disc">
                             <div class="column">
-                                <li> Languages: C#, C++, C, Java, Python </li>
+                                <li> Languages: C#, C++, C, Python </li>
                                 <li> Databases: SQL, MongoDB, postgress</li>
                                 <li> Front End: HTML, CSS, JavaScript </li>
                                 <li> Frameworkes: AngularJS, React/Redux, Vuejs</li>
                             </div>
                             <div class="column">
                                 <li> Version Control: Git</li>
-                                <li> Testing: Jasmine, Mocha</li>
+                                <li> Testing: Jasmine, Mocha, Karma</li>
                                 <li> IDE's: Visual Studios, Exlipse, Eric, Sublime Text </li>
                                 <li> Frameworks: ASP.NET MVC</li>
                             </div>

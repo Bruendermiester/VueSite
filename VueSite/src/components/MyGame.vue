@@ -675,8 +675,8 @@ a:hover {
       display: block;
     }    
     .board, .scoreBoard {
-        width: 350px;
-        height: 350px;
+        width: 90%;
+        height: 320px;
     } 
     .bottomPanel {
         width: 350px;
