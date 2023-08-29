@@ -29,14 +29,14 @@
 	            </div>
 	            <div id="summary">
                     <h3>Summary</h3>
-	                <p> A results-driven, information finding individual. Strong and confident with computer design and problem solving skills. I pride myself on my time management skills and attention to detail.</p><hr>
+	                <p> Results-driven professional with a strong background in computer design and problem-solving. Exceptional time management skills and attention to detail. Adept in various programming languages and frameworks, with a passion for delivering high-quality solutions.</p><hr>
 	            </div>
 	            <div id="tech-skills">
 	                <p>
                         <h3>Skill Highlights</h3>
 	                    <ul style="list-style-type:disc">
                             <div class="column">
-                                <li> Languages: C#, C++, C, Python </li>
+                                <li> Languages: C#, Python </li>
                                 <li> Databases: SQL, MongoDB, postgress</li>
                                 <li> Front End: HTML, CSS, JavaScript </li>
                                 <li> Frameworkes: AngularJS, React/Redux, Vuejs</li>
@@ -44,8 +44,7 @@
                             <div class="column">
                                 <li> Version Control: Git</li>
                                 <li> Testing: Jasmine, Mocha, Karma</li>
-                                <li> IDE's: Visual Studios, Exlipse, Eric, Sublime Text </li>
-                                <li> Frameworks: ASP.NET MVC</li>
+                                <li> Cloud: Firebase, AWS </li>
                             </div>
 	                    </ul>
 	                </p>
