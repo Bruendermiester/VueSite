@@ -29,7 +29,7 @@
 	            </div>
 	            <div id="summary">
                     <h3>Summary</h3>
-	                <p> Results-driven professional with a strong background in computer design and problem-solving. Exceptional time management skills and attention to detail. Adept in various programming languages and frameworks, with a passion for delivering high-quality solutions.</p><hr>
+	                <p>Results-driven professional with a strong background in computer design and problem-solving. Exceptional time management skills and attention to detail. Adept in various programming languages and frameworks, with a passion for delivering high-quality solutions.</p><hr>
 	            </div>
 	            <div id="tech-skills">
 	                <p>
