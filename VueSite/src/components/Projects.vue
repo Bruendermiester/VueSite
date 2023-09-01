@@ -65,6 +65,16 @@ export default {
         displayObject: {},
         projects: [
             {
+                displayImg: require('../assets/IMHome.png'),
+                descriptionTitle: 'IlluvialMaster',
+                img1: require('../assets/IMMaketplace.png'),
+                img2: require('../assets/IMStats.png'),
+                img3: require('../assets/IMStats2.png'),
+                description: 'Welcome to Illuvialmaster.com, your go-to destination for essential tools focused on the Illuvium games Arena, Beyond, Zero, and Overworld. We use cutting-edge Machine Learning and AI to provide market analysis and integrate seamlessly with Immutable X API. ',
+                title: 'IlluvialMaster',
+                show: 'detailView'
+            },        
+            {
                 displayImg: require('../assets/gameBoard.png'),
                 descriptionTitle: 'Connect Five personal game version',
                 description: 'This is a game that I loved playing in college. The goal is to get the highest score you can by connecting five similar colors in a row. My algorithms teacher had us play it to create an algorithm to help get the highest score possible. Test your skills!',

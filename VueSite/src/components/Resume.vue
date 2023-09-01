@@ -29,22 +29,22 @@
 	            </div>
 	            <div id="summary">
                     <h3>Summary</h3>
-	                <p>Results-driven professional with a strong background in computer design and problem-solving. Exceptional time management skills and attention to detail. Adept in various programming languages and frameworks, with a passion for delivering high-quality solutions.</p><hr>
+	                <p>Results-driven professional with a strong background in computer design and problem-solving. Committed to constant improvement and embodying a growth mindset. Exceptional time management skills and attention to detail. Adept in various programming languages and frameworks, with a passion for delivering high-quality solutions.</p><hr>
 	            </div>
 	            <div id="tech-skills">
 	                <p>
                         <h3>Skill Highlights</h3>
 	                    <ul style="list-style-type:disc">
                             <div class="column">
-                                <li> Languages: C#, Python </li>
-                                <li> Databases: SQL, MongoDB, postgress</li>
-                                <li> Front End: HTML, CSS, JavaScript </li>
-                                <li> Frameworkes: AngularJS, React/Redux, Vuejs</li>
+                                <li> Backend: C#, Python, Node </li>
+                                <li> Frontend: Angular, React, Vue, Typscript</li>
+                                <li> Databases: PostgresSQL, MongoDB, Snowflake, OpenSearch</li>
+                                <li> Mobile: Flutter </li>
                             </div>
                             <div class="column">
                                 <li> Version Control: Git</li>
-                                <li> Testing: Jasmine, Mocha, Karma</li>
-                                <li> Cloud: Firebase, AWS </li>
+                                <li> Testing: Jasmine, Mocha, Karma, Cypress</li>
+                                <li> Cloud: Firebase, AWS(Amazon Web Services) </li>
                             </div>
 	                    </ul>
 	                </p>
@@ -53,7 +53,7 @@
 	                <div class="project">
                         <h3>Experience</h3>
                         <p>
-	                        <b>Softwar Engineer - Aug 2018 to Current</b><br>
+	                        <b>Softwar Engineer - Aug 2018 to Aug 2023</b><br>
                             <b>System 1</b>
 	                        <ul>
 	                            <li>Ad Network Internal Tools</li>
@@ -87,22 +87,18 @@
 	                        </ul>
 	                    </p>
 	                    <p>
-	                        <b>Intern Front-end Web Developer - Feb 2015 to Nov 2015</b><br>
-                            <b>Infospace</b>
-	                        <ul>
-	                            <li> Search to Content web design </li>
-	                            <li> HTML, CSS, Javascript </li>
-	                            <li> Angularjs internal platform tool</li>
+	                        <b>Side Projects</b><br>
+                          <ul>
+	                            <b> IlluvialMaster</b>
+                              <li> Fan website for the IP of Illuvium </li>
+	                            <li> Digital Marketplace </li>
+                              <li> Reactjs, Python, AWS, neural net analytics </li>
 	                            <br>
-	                        </ul>
-	                    </p>
-	                    <p>
-	                        <b>Side Project- Connect 5</b><br>
-                            <b>Personal </b>
+	                        </ul>                        
 	                        <ul>
+                              <b>Connect 5</b>
 	                            <li> Vuejs game logic</li>
-                                <li> Firebase database </li>
-	                            <li> More info on my website </li>
+                              <li> Firebase database </li>
 	                            <br>
 	                        </ul>
 	                    </p>                        
