@@ -486,7 +486,7 @@ export default {
 }
 .header {
     display: flex;
-    margin-bottom: 150px;
+    margin-bottom: 50px;
     text-decoration: none;
 }
 .column {

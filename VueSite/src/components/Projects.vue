@@ -36,20 +36,19 @@
             </div>                                                   
         </div>
         <div class="detail-view" v-if="view == 'detailView'">
-            <div class="project-title">
-                <span><a v-on:click="view='projects'">Back</a></span>
-                <h1>{{ displayObject.title }}</h1>
-            </div>
-            <div class="detail-wrapper">
-                <div class="main-img" v-bind:style="{ backgroundImage: 'url(' + displayObject.displayImg + ')' }"></div>
-                <div class="img-block">
-                    <div class="img1" v-bind:style="{ backgroundImage: 'url(' + displayObject.img1 + ')' }"></div>
-                    <div class="img2" v-bind:style="{ backgroundImage: 'url(' + displayObject.img2 + ')' }"></div>
-                </div>
-            </div>
-             <h1>Description</h1>
-             <h3>{{ displayObject.description }}</h3>
+      <div class="project-title">
+        <span><a v-on:click="view='projects'">Back</a></span>
+        <h1>{{ displayObject.title }}</h1>
+      </div>
+      <h1>Description</h1>
+      <h3>{{ displayObject.description }}</h3>
+      <div class="detail-wrapper">
+        <div class="img-block">
+          <div class="image" v-bind:style="{ backgroundImage: 'url(' + displayObject.displayImg + ')' }"></div>
+          <div class="image" v-for="(image, index) in displayObject.images" :key="index" v-bind:style="{ backgroundImage: 'url(' + image + ')' }"></div>
         </div>
+      </div>
+    </div>
 
     </div>
   </div>
@@ -60,55 +59,79 @@ export default {
   name: 'Projects',
   data () {
     return {
-        menuTrigger: false,
-        view: 'projects',
-        displayObject: {},
-        projects: [
-            {
-                displayImg: require('../assets/gameBoard.png'),
-                descriptionTitle: 'Connect Five personal game version',
-                description: 'This is a game that I loved playing in college. The goal is to get the highest score you can by connecting five similar colors in a row. My algorithms teacher had us play it to create an algorithm to help get the highest score possible. Test your skills!',
-                title: 'Connect Five',
-                link: '#/connectFive'
-            },
-            {
-                displayImg: require('../assets/lolgsMain.png'),
-                img1: require('../assets/currentGame.png'),
-                img2: require('../assets/matchDetailView.png'),
-                descriptionTitle: 'LOL.GS: Vue.js Single Page Web Application',
-                description: 'LOL.GS is meant to be an easy to use website for getting stats and game knowledge for past or present League of Legends games. Hopefully it will encourage more people to understand the game better and give insights on what they are doing right and what they are doing wrong. The idea is to create a clean UI with less ads and better stats than the leading applications.',
-                title: 'LOL.GS',
-                show: 'detailView'
-            },
-            {
-                displayImg: require('../assets/recipeApp.png'),
-                img1: require('../assets/recipeCard.png'),
-                img2: require('../assets/recipeCreate.png'),
-                descriptionTitle: 'Cook Book / Recipe Web App',
-                description: 'This project I created when I built a MEAN (MongoDB, Express, Angularjs, Node) stack psersonal website. I created this fully responsive web app to easily add and remove family recipes',
-                title: 'Cook Book',
-                show: 'detailView'
-            },            
-            {
-                displayImg: require('../assets/contentLauncherHome.png'),
-                img1: require('../assets/contentLauncherUrl.png'),
-                img2: require('../assets/contentLauncherCreate.png'),
-                img3: require('../assets/contentLauncherCommitted.png'),
-                descriptionTitle: 'Content Launcher',
-                description: 'Internal tool for helping launch ads on various platforms. This tool allowed users to go from launching multiple ads a day, to hundreds on different platforms.',
-                title: 'Content Launcher',
-                show: 'detailView'
-            },
-            {
-                displayImg: require('../assets/Stuff-SERP-4colV2_jy.png'),
-                img1: require('../assets/Social_view.png'),
-                img2: require('../assets/Metadata_view.png'),
-                img3: require('../assets/Monatization_view.png'),
-                description: 'Signals was a serp page created with angularjs and a python/flash server. It would ingest content from publishers and crunch internal algorithms to show you how well you content was doing. It also allowed you to sort and search for the best data.',
-                title: 'Signals',
-                show: 'detailView'
-            }                                                                                                     
-        ]
+      menuTrigger: false,
+      view: 'projects',
+      displayObject: {},
+      projects: [
+        {
+          displayImg: require('../assets/IMHome.png'),
+          descriptionTitle: 'IlluvialMaster',
+          images: [
+            require('../assets/IMMaketplace.png'),
+            require('../assets/IMStats.png'),
+            require('../assets/IMStats2.png'),
+            require('../assets/deckbuilder.png'),
+            require('../assets/teambuilder.png'),
+            require('../assets/resources.png'),
+            require('../assets/collections.png')
+          ],
+          description: 'Welcome to Illuvialmaster.com, your go-to destination for essential tools focused on the Illuvium games Arena, Beyond, Zero, and Overworld. We use cutting-edge Machine Learning and AI to provide market analysis and integrate seamlessly with Immutable X API. ',
+          title: 'IlluvialMaster',
+          show: 'detailView'
+        },
+        {
+          displayImg: require('../assets/connect5.png'),
+          descriptionTitle: 'Connect Five personal game version',
+          description: 'This is a game that I loved playing in college. The goal is to get the highest score you can by connecting five similar colors in a row. My algorithms teacher had us play it to create an algorithm to help get the highest score possible. Test your skills!',
+          title: 'Connect Five',
+          link: '#/connectFive'
+        },
+        {
+          displayImg: require('../assets/lolgsMain.png'),
+          images: [
+            require('../assets/currentGame.png'),
+            require('../assets/matchDetailView.png'),
+          ],
+          descriptionTitle: 'LOL.GS: Vue.js Single Page Web Application',
+          description: 'LOL.GS is meant to be an easy to use website for getting stats and game knowledge for past or present League of Legends games. Hopefully it will encourage more people to understand the game better and give insights on what they are doing right and what they are doing wrong. The idea is to create a clean UI with less ads and better stats than the leading applications.',
+          title: 'LOL.GS',
+          show: 'detailView'
+        },
+        {
+          displayImg: require('../assets/recipeApp.png'),
+          images: [
+            require('../assets/recipeCard.png'),
+            require('../assets/recipeCreate.png'),
+          ],
+          descriptionTitle: 'Cook Book / Recipe Web App',
+          description: 'This project I created when I built a MEAN (MongoDB, Express, Angularjs, Node) stack psersonal website. I created this fully responsive web app to easily add and remove family recipes',
+          title: 'Cook Book',
+          show: 'detailView'
+        },            
+        {
+          displayImg: require('../assets/contentLauncherHome.png'),
+          images: [
+            require('../assets/contentLauncherUrl.png'),
+            require('../assets/contentLauncherCreate.png'),
+            require('../assets/contentLauncherCommitted.png')
+          ],
+          descriptionTitle: 'Content Launcher',
+          description: 'Internal tool for helping launch ads on various platforms. This tool allowed users to go from launching multiple ads a day, to hundreds on different platforms.',
+          title: 'Content Launcher',
+          show: 'detailView'
+        },
+        {
+          displayImg: require('../assets/Stuff-SERP-4colV2_jy.png'),
+          images: [
+            require('../assets/Social_view.png'),
+            require('../assets/Metadata_view.png'),
+            require('../assets/Monatization_view.png')
+          ],
+          description: 'Signals was a serp page created with angularjs and a python/flash server. It would ingest content from publishers and crunch internal algorithms to show you how well you content was doing. It also allowed you to sort and search for the best data.',
+          title: 'Signals',
+          show: 'detailView'
+        }
+      ]
     }
   }
 }
@@ -120,6 +143,7 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     padding-bottom: 20px;
+    min-height: 100vh;
   }
   .header {
     display: flex;
@@ -159,6 +183,8 @@ export default {
   .project-container {
       width: 75%;
       margin: 20px 0 30px 20px;
+      border-bottom: 1px solid #CCC;
+      padding-bottom: 10px;
   }
   .project-container h2 {
       text-align: left;
@@ -201,9 +227,8 @@ export default {
   .detail-wrapper {
       display: flex;
       flex-wrap: wrap;
-      width: 50%;
-      margin: 150px auto;
-      max-height: 800px;
+      width: 85%;
+      margin: 50px auto;
   }
   .display-img {
     background-size: contain;
@@ -248,9 +273,13 @@ export default {
       font-size: 20px;
   }
   .detail-view h3 {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
       text-align: left;
+      padding: 0 25px;
+  }
+  .detail-view h1 {
+    margin-top: 50px;
   }
   .project-title {
       width: 85%;
@@ -297,6 +326,25 @@ export default {
     font-size: 25px;
     text-decoration: none;
   }    
+    /* Add this CSS for the flex-wrapped container */
+    .img-block {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  /* Style for each image in the container */
+  .image {
+    flex: 1; /* Adjust flex property as needed */
+    width: auto; /* Adjust the width as per your layout */
+    margin: 10px; /* Adjust the margin as needed for spacing */
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 210px; /* Adjust the height as needed */
+    min-width: 400px;
+    min-height: 400px;
+  }
 @media all and (max-width: 500px) {
   .menu {
      display: none;
@@ -314,7 +362,6 @@ export default {
       display: flex;
       flex-wrap: wrap;
       max-width: 100%;
-      max-height: 400px;
   }
   .image-container img {
       width: 300px;
@@ -343,7 +390,16 @@ export default {
       font-size: 18px; 
   }  
   .project-description h3 {
-      font-size: 14px; 
+      font-size: 24px;
   }
-}  
+  .project {
+    flex-direction: column;
+  }
+  .display-img {
+    height: 240px;
+  }
+  .image {
+    min-height: 275px;
+  }
+}
 </style>

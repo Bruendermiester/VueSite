@@ -25,7 +25,7 @@
           </div>
           <div class="title">
             <h1>Hi, I'm <span>{{ author }}</span></h1>
-            <h2>{{ msg }}</h2>         
+            <h2>{{ msg }}</h2>
           </div>
         </div>
       </div>
@@ -52,10 +52,8 @@ export default {
       menuTrigger: false,
       msg: 'Software Engineer / Web Developer / UI Designer',
       author: 'Jonathan Bruenderman',
-      title: '  My name is Jonathan Bruenderman, I am a Software Engineer. I have 5 years of experience as a  ' +
-             'full stack developer, mainly focused on building and maintaining web api interterfaces and applications with a focus with ' +
-             'Javascript and Python. I have used most of the current front-end frameworks including Vue.js, Angular.js, React.js. ' + 
-             'However the thing I take the most pride in is my communication and organisational skills.'
+      title: 'My name is Jonathan Bruenderman, I am a Software Engineer. I have leveraged my nine years of experience and my expertise in AWS and React.js to design, develop, and deploy scalable and reliable web applications and services. I am passionate about delivering high-quality solutions that meet the needs and expectations of the clients and users, and that align with the companys vision and goals. I have a strong background in computer design and problem-solving, and I am committed to constant improvement and embodying a growth mindset. I have a keen attention to detail and exceptional time management skills, which enable me to work efficiently and effectively in a fast-paced and dynamic environment. I also enjoy collaborating and communicating with my team and other stakeholders, and I always seek to learn from feedback and challenges.'
+
     }
   }
 }
