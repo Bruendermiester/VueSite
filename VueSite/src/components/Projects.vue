@@ -64,6 +64,41 @@ export default {
       displayObject: {},
       projects: [
         {
+          displayImg: require('../assets/wolvesden1.png'),
+          descriptionTitle: 'Wolves Den GDC',
+          images: [
+            require('../assets/wolvesden2.png'),
+            require('../assets/wolvesden3.png'),
+            require('../assets/wolvesden4.png')
+          ],
+          description: 'I helped create the UI for the WolvesDen live page event for GDC 2025',
+          title: 'Wolves Den GDC 2025',
+          show: 'detailView'
+        },          
+        {
+          displayImg: require('../assets/background2.png'),
+          descriptionTitle: 'Isles of the Arcane',
+          images: [
+            require('../assets/taverns1.png'),
+            require('../assets/taverns2.png'),
+            require('../assets/taverns3.png')
+          ],
+          description: 'Isles of the Arcane is a mod of Pirate Nation that I built to teach myself unity game dev. It is a multiplayer top down hero shooter set in the universe of Pirate Nation.',
+          title: 'Isles of the Arcane',
+          link: 'https://islesofthearcane.com/'
+        },  
+        {
+          displayImg: require('../assets/taverns1.png'),
+          descriptionTitle: 'Pirate Nation Taverns',
+          images: [
+            require('../assets/taverns2.png'),
+            require('../assets/taverns3.png')
+          ],
+          description: 'Tarverns is a tool meant for the Pirate Nation community to help build decks or learn information of the game, based on the onchain infustruction that Proof of Play is creating.',
+          title: 'Taverns',
+          show: 'detailView'
+        },        
+        {
           displayImg: require('../assets/IMHome.png'),
           descriptionTitle: 'IlluvialMaster',
           images: [
